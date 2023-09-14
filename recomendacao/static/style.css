@@ -1,3 +1,69 @@
-h1{
-    color: aqua;
+
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
+
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Source Sans Pro', sans-serif;
+    background-color: rgba(121, 112, 145, 0.329);
+    background-image: url('Images/Menu.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+h1 {
+    color: #fff;
+    font-size: 50px;
+    margin: 0;
+}
+
+.logo{
+    background-image: url('Images/logo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 75px;
+    height: 60px;
+    display: flex;
+    margin-right: 10px;
+}
+
+
+.bg {
+    background-color: rgb(59, 133, 91);
+    border-radius: 13px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 1300px;
+    height: 100px;
+}
+
+.button {
+    background-color: rgba(59, 133, 91);
+    color: #ffffff;
+    border-radius: 10px;
+    padding: 20px 40px;
+    font-size: 30px;
+    display: inline-block;
+    text-align: center;
+    margin-top: 250px;
+    margin-left: 570px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, transform 0.3s;
+}
+
+.button:hover {
+    background-color: #67cf81;
+    color: #000000;
+    transform: scale(1.05);
+}
+
+#format {
+    text-align: center;
 }

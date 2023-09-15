@@ -25,22 +25,26 @@ h1 {
     background-size: contain;
     background-repeat: no-repeat;
     width: 75px;
-    height: 60px;
-    display: flex;
-    margin-right: 10px;
+    height: 55px;
 }
-
 
 .header {
     background-color: rgb(59, 133, 91);
     border-radius: 13px;
     display: flex;
+    padding: 5px;
+    justify-content: space-between;
     justify-content: center;
     align-items: center;
     margin: 0 auto;
     margin-top: auto;
     width: auto;
     height: 100px;
+}
+
+.title {
+    flex-grow: 1;
+    margin-left: 50px; /* Adicione margem à esquerda do título */
 }
 
 .button {

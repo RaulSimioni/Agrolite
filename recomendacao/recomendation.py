@@ -11,6 +11,7 @@ from sklearn.tree import DecisionTreeClassifier
 
 def Carregar_Dataset(path):
     dataset = pd.read_csv(path)
+    dataset.head(30)
     return dataset
 
 def Encoder_Y(dataset):
@@ -52,6 +53,9 @@ if __name__ == '__main__':
     dataset_path = os.path.join(base_dir, file_path)
     dataset = Carregar_Dataset(dataset_path)
 
+    print(dataset)
+    input('')
+
     #Chamado da funcao Encoder para transformar a coluna dado 'label' em numeros,
     #que é nessecario dependendo do modelo de machine learning, pois meu modelo nao é capaz de compreender strings
     dataset_encoded = Encoder_Y(dataset)
@@ -71,9 +75,13 @@ if __name__ == '__main__':
 
     #Aqui estou mostrando a prcisão do meu modelo e tambem exibindo um relatorio de treinamento de cada 'label'
     accuracy, report = Avaliar_DecisionTree(Treino_Modelo, x_validation_scaled, y_validation)
-    print("Precisao DecisionTree: ", accuracy, '\n')
+
+    print(dataset_encoded.head(30))
+    input('')
+    print('\n', "            Precisao DecisionTree: ", accuracy, '\n')
     print("                             Relatorio", '\n')
     print(report)
+    input('')
 
 
 

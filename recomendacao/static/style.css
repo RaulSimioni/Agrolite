@@ -14,10 +14,34 @@ body, html {
     background-size: cover;
 }
 
+.centralizar_botao{
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.centralizar {
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 120vh;
+    gap: 10px;
+}
+
 h1 {
     color: #fff;
     font-size: 50px;
     margin: 0;
+}
+
+.json{
+    color: white;
+    align-items: center;
+    flex-direction: row;
 }
 
 .logo{
@@ -26,6 +50,27 @@ h1 {
     background-repeat: no-repeat;
     width: 75px;
     height: 55px;
+}
+
+/* Estilize as caixas de input */
+input[type="text"] {
+    padding: 8px;
+    margin: 5px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    outline: none;
+}
+
+/* Estilize os placeholders (textos de exemplo nos inputs) */
+input[type="text"]::placeholder {
+    color: #00000070;
+}
+
+/* Estilize os inputs quando estiverem em foco */
+input[type="text"]:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
 .header {

@@ -8,11 +8,54 @@
     <title>Document</title>
 </head>
 <body>
+    
     <header class="header">
         <div class="logo"></div>
             <div>
                 <a href="{% url 'index' %}"><h1>AGROLITE</h1></a>
             </div>
     </header>
+
+    <div class="fundo">
+        <div class="centralizar">
+            <input type="text" id="N" placeholder="Nitrogênio">
+            <input type="text" id="P" placeholder="Fósforo">
+            <input type="text" id="K" placeholder="Potássio">
+            <input type="text" id="Temperatura" placeholder="Temperatura">
+            <input type="text" id="Umidade" placeholder="Umidade">
+            <input type="text" id="Ph" placeholder="Ph">
+            <button class="centralizar_botao" id="botao" type="button">Enviar</button>
+        </div>
+        <pre class="json" id="resultadoJSON"></pre>            
+    </div>
+
+    <script>
+        document.getElementById("botao").addEventListener("click", function() {
+            // Obtém o valor da caixa de texto
+            var n = document.getElementById("N").value;
+            var p = document.getElementById("P").value;
+            var k = document.getElementById("K").value;
+            var temp = document.getElementById("Temperatura").value;
+            var umidade = document.getElementById("Umidade").value;
+            var ph = document.getElementById("Ph").value;
+
+            
+            var dados = {
+                N: n,
+                P: p,
+                K: k,
+                Temperatura: temp,
+                Umidade: umidade,
+                Ph: ph
+            };
+
+            // Converte o objeto JavaScript em JSON
+            var json = JSON.stringify(dados, null, 2);
+
+            // Exibe o JSON no elemento de resultado
+
+            window.open("jsonview.html?json=" + encodeURIComponent(json), "_blank");
+        });
+    </script>
 </body>
 </html>

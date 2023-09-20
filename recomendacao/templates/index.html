@@ -9,13 +9,16 @@
 </head>
 <body>
     <header class="header">
+        <div class="logo"></div>
             <div>
-                <h1 class="title">AGROLITE</h1>
+                <a href="{% url 'index' %}"><h1>AGROLITE</h1></a>
             </div>
-            <div class="logo"></div>
+        <div>
+            <button class="login_button">Login</button>
+        </div>
     </header>
     <div class="centrada">
-            <a href="{% url 'recomendacao' %}"><button class="button">Começar</button></a>
+            <a href="{% url 'recomendacao' %}"><button class="button">COMEÇAR</button></a>
     </div>
 </body>
 </html>

@@ -16,18 +16,29 @@
             </div>
     </header>
 
-    <div class="fundo">
-        <div class="centralizar">
-            <input type="text" id="N" placeholder="Nitrogênio">
-            <input type="text" id="P" placeholder="Fósforo">
-            <input type="text" id="K" placeholder="Potássio">
-            <input type="text" id="Temperatura" placeholder="Temperatura">
-            <input type="text" id="Umidade" placeholder="Umidade">
-            <input type="text" id="Ph" placeholder="Ph">
-            <button class="centralizar_botao" id="botao" type="button">Enviar</button>
-        </div>
-        <pre class="json" id="resultadoJSON"></pre>            
+
+    <pre class="json" id="resultadoJSON"></pre>  
+    
+    <div class="centralizar">
+        <input type="text" id="N" placeholder="Nitrogênio">
+        <input type="text" id="P" placeholder="Fósforo">
+        <input type="text" id="K" placeholder="Potássio">
+        <input type="text" id="Temperatura" placeholder="Temperatura">
     </div>
+    <div class="centralizar2">
+        <input type="text" id="Umidade" placeholder="Umidade">
+        <input type="text" id="Ph" placeholder="Ph">
+        <input type="text" id="Chuva" placeholder="Chuva">
+    </div>
+    <div>
+        <button class="button_enviar" id="botao" type="button">Enviar</button>
+    </div>
+    
+
+
+    
+    
+    
 
     <script>
         document.getElementById("botao").addEventListener("click", function() {
@@ -38,6 +49,7 @@
             var temp = document.getElementById("Temperatura").value;
             var umidade = document.getElementById("Umidade").value;
             var ph = document.getElementById("Ph").value;
+            var rain = document.getElementById("Chuva").value;
 
             
             var dados = {
@@ -46,7 +58,8 @@
                 K: k,
                 Temperatura: temp,
                 Umidade: umidade,
-                Ph: ph
+                Ph: ph,
+                rainfall: rain
             };
 
             // Converte o objeto JavaScript em JSON

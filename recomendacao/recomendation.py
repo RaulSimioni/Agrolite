@@ -1,6 +1,4 @@
-import numpy as np
 import pandas as pd
-import sklearn as sk
 import os
 
 from sklearn.model_selection import train_test_split
@@ -76,12 +74,40 @@ if __name__ == '__main__':
     #Aqui estou mostrando a prcisão do meu modelo e tambem exibindo um relatorio de treinamento de cada 'label'
     accuracy, report = Avaliar_DecisionTree(Treino_Modelo, x_validation_scaled, y_validation)
 
+    label_mapping = {
+        0: 'Arroz',
+        1:  'Milho',
+        2:  'Grão-de-bico',
+        3:  'Feijão',
+        4:  'Guandu',
+        5:  '',
+        6:  '',
+        7:  '',
+        8:  'Lentilha',
+        9:  'Romã',
+        10:  'Banana',
+        11:  'Manga',
+        12:  'Uva',
+        13:  'Melancia',
+        14:  'Melão',
+        15:  'Maçã',
+        16:  'Laranja',
+        17:  'Mamão',
+        18:  'Coco',
+        19:  'Aogodão',
+        20:  '',
+        21:  'Café'
+    }
+
+    nomes_das_plantas = [label_mapping[valor] for valor in y_validation]
+
     print(dataset_encoded.head(30))
     input('')
     print('\n', "            Precisao DecisionTree: ", accuracy, '\n')
     print("                             Relatorio", '\n')
     print(report)
     input('')
+    print(y_validation)
 
 
 

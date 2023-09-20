@@ -9,9 +9,6 @@ def index(request):
 def recomendacao(request):
     return render(request, 'recomendacao.html')
 
-def jsonviewer(request):
-    return render(request, 'jsonview.html')
-
 
 def funcao_de_visualizacao(request):
     if request.method == 'POST':

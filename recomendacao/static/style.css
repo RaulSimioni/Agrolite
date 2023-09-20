@@ -22,13 +22,29 @@ body, html {
     justify-content: center;
 }
 
-.centralizar {
+.centralizar2 {
     text-align: center;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    height: 120vh;
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    gap: 10px;
+}
+
+.centralizar{
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     gap: 10px;
 }
 
@@ -52,9 +68,8 @@ h1 {
     height: 55px;
 }
 
-/* Estilize as caixas de input */
 input[type="text"] {
-    padding: 8px;
+    padding: 12px;
     margin: 5px;
     border: 2px solid #ccc;
     border-radius: 5px;
@@ -62,45 +77,91 @@ input[type="text"] {
     outline: none;
 }
 
-/* Estilize os placeholders (textos de exemplo nos inputs) */
+
 input[type="text"]::placeholder {
-    color: #00000070;
+    color: #000000a9;
 }
 
-/* Estilize os inputs quando estiverem em foco */
+
 input[type="text"]:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    border-color: rgb(59, 133, 91);
+    box-shadow: 0 0 5px rgba(59, 133, 91);
 }
+
+
 
 .header {
-    background-color: rgb(59, 133, 91);
-    border-radius: 13px;
+    background-color: rgba(59, 133, 91, 0.904);
     display: flex;
     padding: 5px;
+    border-radius: 40px;
     justify-content: space-between;
     justify-content: center;
     align-items: center;
     margin: 0 auto;
     margin-top: auto;
+    margin-bottom: 10px;
     width: auto;
     height: 100px;
 }
 
 .title {
     flex-grow: 1;
-    margin-left: 50px; /* Adicione margem à esquerda do título */
+    margin-left: 50px;
 }
 
 .button {
     background-color: rgba(59, 133, 91);
     color: #ffffff;
     border-radius: 10px;
-    padding: 20px 100px;
-    font-size: 30px;
+    padding: 20px 80px;
+    font-size: 25px;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s, transform 0.3s;
-    display: inline-block; /* Para centralizar horizontalmente */
+    display: inline-block;
+}
+
+
+.login_button{
+    outline: none;
+    cursor: pointer;
+    font-size: 15px;
+    line-height: 1;
+    border-radius: 500px;
+    transition-property: background-color,border-color,color,box-shadow,filter;
+    transition-duration: .3s;
+    border: 1px solid transparent;
+    letter-spacing: 2px;
+    min-width: 160px;
+    text-transform: uppercase;
+    white-space: normal;
+    font-weight: 700;
+    text-align: center;
+    padding: 17px 48px;
+    color: #fff;
+    background-color: rgb(0, 0, 0);
+    height: 48px;
+    position: absolute;
+    top: auto;
+    right: 10px;
+    transform: translate(-50%, -50%);
+}
+
+.button_enviar {
+    background: rgba(59, 133, 91);
+    color: #fff;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, transform 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 90%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .centrada {
@@ -109,7 +170,7 @@ input[type="text"]:focus {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100%; /* Para centralizar verticalmente */
+    height: 80%;
 }
 
 a {
@@ -117,10 +178,8 @@ a {
     color: inherit;
 }
 
-.button:hover {
-    background-color: #67cf81;
-    color: #000000;
-    transform: scale(1.05);
+.button:hover{
+    transform: scale(1.04);
 }
 
 #format {

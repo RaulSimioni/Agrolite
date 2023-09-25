@@ -51,8 +51,8 @@ if __name__ == '__main__':
     dataset_path = os.path.join(base_dir, file_path)
     dataset = Carregar_Dataset(dataset_path)
 
-    print(dataset)
-    input('')
+    #print(dataset)
+    #input('')
 
     #Chamado da funcao Encoder para transformar a coluna dado 'label' em numeros,
     #que é nessecario dependendo do modelo de machine learning, pois meu modelo nao é capaz de compreender strings
@@ -71,43 +71,66 @@ if __name__ == '__main__':
     #Aqui estou dando os valores para o modelo da machine learning, note que estou usando a normalzação no x
     Treino_Modelo = Treinar_DecisionTree(x_train_scaled, y_train)
 
+    #print(dataset_encoded.head(30))
+    #input('')
+
     #Aqui estou mostrando a prcisão do meu modelo e tambem exibindo um relatorio de treinamento de cada 'label'
     accuracy, report = Avaliar_DecisionTree(Treino_Modelo, x_validation_scaled, y_validation)
 
-    label_mapping = {
-        0: 'Arroz',
-        1:  'Milho',
+    #print('\n', "            Precisao DecisionTree: ", accuracy, '\n')
+    #print("                             Relatorio", '\n')
+    #print(report)
+
+    dados_usuario = {
+        'N': 40,
+        'P': 72,
+        'K': 77,
+        'temperature': 17,
+        'humidity': 16,
+        'ph': 7,
+        'rainfall': 88
+    }
+    
+    mapeamento = {
+        0: 'Arroz ',
+        1:  'Milho ',
         2:  'Grão-de-bico',
-        3:  'Feijão',
+        3:  'Feijão Roxo',
         4:  'Guandu',
-        5:  '',
-        6:  '',
-        7:  '',
-        8:  'Lentilha',
-        9:  'Romã',
-        10:  'Banana',
-        11:  'Manga',
-        12:  'Uva',
+        5:   'Feijão',
+        6:   '',
+        7:   '',
+        8:   'Lentilha',
+        9:   'Romã',
+        10:  'Banana ',
+        11:  'Manga ',
+        12:  'Uva ',
         13:  'Melancia',
         14:  'Melão',
         15:  'Maçã',
         16:  'Laranja',
         17:  'Mamão',
         18:  'Coco',
-        19:  'Aogodão',
-        20:  '',
+        19:  'Algodão',
+        20:  'Juta',
         21:  'Café'
     }
 
-    nomes_das_plantas = [label_mapping[valor] for valor in y_validation]
-
-    print(dataset_encoded.head(30))
-    input('')
-    print('\n', "            Precisao DecisionTree: ", accuracy, '\n')
-    print("                             Relatorio", '\n')
-    print(report)
-    input('')
-    print(y_validation)
+    dados_usuario_df = pd.DataFrame([dados_usuario])
+    dados_usuario_df.columns = x_train.columns
+    print(dados_usuario_df, '\n')
 
 
+    scaler = StandardScaler()
+
+    scaler.fit(x_train)
+
+    dados_usuario_scaled = scaler.transform(dados_usuario_df)
+    recomendacao = Treino_Modelo.predict(dados_usuario_scaled)
+
+    nome_da_planta_recomendada = mapeamento[recomendacao[0]]
+
+    print("                     ",nome_da_planta_recomendada)
+    
+    
 

@@ -1,7 +1,7 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
 
-body, html {
+body,
+html {
     height: 100%;
     margin: 0;
     padding: 0;
@@ -14,7 +14,7 @@ body, html {
     background-size: cover;
 }
 
-.centralizar_botao{
+.centralizar_botao {
     text-align: center;
     display: flex;
     flex-direction: row;
@@ -35,7 +35,7 @@ body, html {
     gap: 10px;
 }
 
-.centralizar{
+.centralizar {
     text-align: center;
     display: flex;
     flex-direction: row;
@@ -54,13 +54,13 @@ h1 {
     margin: 0;
 }
 
-.json{
+.json {
     color: white;
     align-items: center;
     flex-direction: row;
 }
 
-.logo{
+.logo {
     background-image: url('Images/logo.png');
     background-size: contain;
     background-repeat: no-repeat;
@@ -108,44 +108,72 @@ input[type="text"]:focus {
 .title {
     flex-grow: 1;
     margin-left: 50px;
+    position: absolute;
+    transform: translate(-50%, -50%);
 }
 
 .button {
-    background-color: rgba(59, 133, 91);
-    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.938);
+    color: #000000;
     border-radius: 10px;
-    padding: 20px 80px;
-    font-size: 25px;
+    margin: 20px;
+    padding: 18px 98px;
+    font-size: 23px;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s, transform 0.3s;
     display: inline-block;
 }
 
 
-.login_button{
-    outline: none;
+.button_login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 9px 12px;
+    gap: 8px;
+    height: 45px;
+    width: 150px;
+    border: none;
+    background: rgb(255, 255, 255);
+    border-radius: 50px;
     cursor: pointer;
-    font-size: 15px;
-    line-height: 1;
-    border-radius: 500px;
-    transition-property: background-color,border-color,color,box-shadow,filter;
-    transition-duration: .3s;
-    border: 1px solid transparent;
-    letter-spacing: 2px;
-    min-width: 160px;
-    text-transform: uppercase;
-    white-space: normal;
-    font-weight: 700;
-    text-align: center;
-    padding: 17px 48px;
-    color: #fff;
-    background-color: rgb(0, 0, 0);
-    height: 48px;
     position: absolute;
-    top: auto;
-    right: 10px;
-    transform: translate(-50%, -50%);
+    transform: translate(220%, -50%);
 }
+
+.lable {
+    line-height: 22px;
+    font-size: 17px;
+    color: #000000;
+    margin-left: 20px;
+    font-family: sans-serif;
+    letter-spacing: 1px;
+}
+
+.button .span {
+    border-radius: 50%;
+    background-color: rgb(48, 129, 29);
+    padding: 10px;
+    position: absolute;
+    left: 0;
+}
+
+
+.button_login:hover .svg-icon {
+    animation: slope 0.8s linear infinite;
+}
+
+@keyframes slope {
+    0% {}
+
+    50% {
+        transform: rotate(15deg);
+    }
+
+    100% {}
+}
+
+
 
 .button_enviar {
     background: rgba(59, 133, 91);
@@ -178,7 +206,7 @@ a {
     color: inherit;
 }
 
-.button:hover{
+.button:hover {
     transform: scale(1.04);
 }
 

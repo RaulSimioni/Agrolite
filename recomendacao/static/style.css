@@ -84,14 +84,14 @@ input[type="text"]::placeholder {
 
 
 input[type="text"]:focus {
-    border-color: rgb(59, 133, 91);
-    box-shadow: 0 0 5px rgba(59, 133, 91);
+    border-color: rgb(0, 0, 0);
+    box-shadow: 0 0 5px rgb(0, 0, 0);
 }
 
 
 
 .header {
-    background-color: rgba(59, 133, 91, 0.904);
+    background-color: rgb(59, 133, 91);
     display: flex;
     padding: 5px;
     border-radius: 40px;
@@ -113,15 +113,15 @@ input[type="text"]:focus {
 }
 
 .button {
-    background-color: rgba(255, 255, 255, 0.938);
+    background-color: rgb(59, 133, 91);
     color: #000000;
-    border-radius: 10px;
-    margin: 20px;
-    padding: 18px 98px;
+    border: solid;
+    border-width: 2px;
+    border-radius: 30px;
+    padding: 18px 108px;
     font-size: 23px;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s, transform 0.3s;
-    display: inline-block;
 }
 
 
@@ -133,7 +133,8 @@ input[type="text"]:focus {
     gap: 8px;
     height: 45px;
     width: 150px;
-    border: none;
+    border: solid;
+    border-width: 1px;
     background: rgb(255, 255, 255);
     border-radius: 50px;
     cursor: pointer;
@@ -207,7 +208,7 @@ a {
 }
 
 .button:hover {
-    transform: scale(1.04);
+    transform: scale(1.05);
 }
 
 #format {

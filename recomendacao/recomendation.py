@@ -7,6 +7,31 @@ from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.metrics import accuracy_score
 from sklearn.tree import DecisionTreeClassifier
 
+mapeamento = {
+        0: 'Arroz ',
+        1:  'Milho ',
+        2:  'Grão-de-bico',
+        3:  'Feijão Roxo',
+        4:  'Guandu',
+        5:   'Feijão',
+        6:   '',
+        7:   '',
+        8:   'Lentilha',
+        9:   'Romã',
+        10:  'Banana ',
+        11:  'Manga ',
+        12:  'Uva ',
+        13:  'Melancia',
+        14:  'Melão',
+        15:  'Maçã',
+        16:  'Laranja',
+        17:  'Mamão',
+        18:  'Coco',
+        19:  'Algodão',
+        20:  'Juta',
+        21:  'Café'
+    }
+
 def Carregar_Dataset(path):
     dataset = pd.read_csv(path)
     dataset.head(30)
@@ -35,12 +60,28 @@ def Treinar_DecisionTree(x_train, y_train):
     model.fit(x_train, y_train)
     return model
 
-def Avaliar_DecisionTree(model, x_validation, y_validation):
+def Avaliar_DecisionTree(model ,x_validation, y_validation):
     predictions = model.predict(x_validation)
     accuracy = accuracy_score(y_validation, predictions)
     report = classification_report(y_validation, predictions)
     return accuracy, report
 
+def Recomendar(dados_usuario):
+    scaler = StandardScaler()
+    data_frame_dados = pd.DataFrame([dados_usuario])
+    data_frame_dados.columns = x_train.columns
+    scaler.fit(x_train)
+    dados_scaled = scaler.transform(data_frame_dados)
+    recomendacao = Treino_Modelo.predict(dados_scaled)
+    resultado_recomendacao = mapeamento[recomendacao[0]]
+    
+    return resultado_recomendacao
+
+def resultado():
+    rec = Recomendar(dados_usuario)
+    print("")
+    print("                     Precisão:",accuracy, '\n')
+    print(report)
 
 if __name__ == '__main__':
 
@@ -82,13 +123,13 @@ if __name__ == '__main__':
     #print(report)
 
     dados_usuario = {
-        'N': 40,
-        'P': 72,
-        'K': 77,
-        'temperature': 17,
-        'humidity': 16,
-        'ph': 7,
-        'rainfall': 88
+        'N': 36,
+        'P': 60,
+        'K': 80,
+        'temperature': 20,
+        'humidity': 30,
+        'ph': 6,
+        'rainfall': 101
     }
     
     mapeamento = {
@@ -116,21 +157,9 @@ if __name__ == '__main__':
         21:  'Café'
     }
 
-    dados_usuario_df = pd.DataFrame([dados_usuario])
-    dados_usuario_df.columns = x_train.columns
-    print(dados_usuario_df, '\n')
+    result = Recomendar(dados_usuario)
 
 
-    scaler = StandardScaler()
-
-    scaler.fit(x_train)
-
-    dados_usuario_scaled = scaler.transform(dados_usuario_df)
-    recomendacao = Treino_Modelo.predict(dados_usuario_scaled)
-
-    nome_da_planta_recomendada = mapeamento[recomendacao[0]]
-
-    print("                     ",nome_da_planta_recomendada)
     
     
 

@@ -17,7 +17,7 @@
     </header>
 
 
-    <pre class="json" id="resultadoJSON"></pre>  
+    <div id="resultado"></div>
     
     <div class="centralizar">
         <input type="text" id="N" placeholder="Nitrogênio">
@@ -31,41 +31,28 @@
         <input type="text" id="Chuva" placeholder="Chuva">
     </div>
     <div>
-        <button class="button_enviar" id="botao" type="button">Enviar</button>
+        <form method="post" action="{% url 'recomendacao' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="button_enviar" id="botao" type="button">Enviar</button>
+        </form>
     </div>
     
 
 
-    
-    
-    
-
     <script>
-        document.getElementById("botao").addEventListener("click", function() {
-            // Obtém o valor da caixa de texto
-            var n = document.getElementById("N").value;
-            var p = document.getElementById("P").value;
-            var k = document.getElementById("K").value;
-            var temp = document.getElementById("Temperatura").value;
-            var umidade = document.getElementById("Umidade").value;
-            var ph = document.getElementById("Ph").value;
-            var rain = document.getElementById("Chuva").value;
+        document.querySelector("form").addEventListener("submit", function(event) {
+            event.preventDefault(); // Evita que o formulário seja enviado por padrão
 
-            
-            var dados = {
-                N: n,
-                P: p,
-                K: k,
-                Temperatura: temp,
-                Umidade: umidade,
-                Ph: ph,
-                rainfall: rain
-            };
-
-            // Converte o objeto JavaScript em JSON
-            var json = JSON.stringify(dados, null, 2);
-
-            document.getElementById("resultadoJSON").textContent = json;
+            var formData = new FormData(this);
+            fetch(this.action, {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("resultado").textContent = "Recomendação: " + data.recomendacao;
+            });
         });
     </script>
 </body>

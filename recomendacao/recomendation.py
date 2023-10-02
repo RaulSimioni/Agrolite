@@ -8,28 +8,28 @@ from sklearn.metrics import accuracy_score
 from sklearn.tree import DecisionTreeClassifier
 
 mapeamento = {
-        0: 'Arroz ',
-        1:  'Milho ',
-        2:  'Grão-de-bico',
-        3:  'Feijão Roxo',
-        4:  'Guandu',
-        5:   'Feijão',
-        6:   '',
-        7:   '',
-        8:   'Lentilha',
-        9:   'Romã',
-        10:  'Banana ',
-        11:  'Manga ',
-        12:  'Uva ',
-        13:  'Melancia',
-        14:  'Melão',
-        15:  'Maçã',
-        16:  'Laranja',
-        17:  'Mamão',
-        18:  'Coco',
-        19:  'Algodão',
-        20:  'Juta',
-        21:  'Café'
+        0:  'Maçã 🍎',
+        1:  'Banana 🍌',
+        2:  'Vigna mungo',
+        3:  'Grão-de-bico',
+        4:  'Coco 🥥',
+        5:  'Café ☕',
+        6:  'Algodão',
+        7:  'Uva 🍇',
+        8:  'Juta 🧶',
+        9:  'Feijão Roxo',
+        10: 'Lentilha',
+        11: 'Milho 🌽',
+        12: 'Manga 🥭',
+        13: 'Vigna aconitifolia',
+        14: 'Vigna radiata',
+        15: 'Melão 🍈',
+        16: 'Laranja 🍊',
+        17: 'Mamão',
+        18: 'Guandu',
+        19: 'Romã',
+        20: 'Arroz 🍚',
+        21: 'Melancia 🍉'
     }
 
 def Carregar_Dataset(path):
@@ -69,6 +69,21 @@ def Avaliar_DecisionTree(model ,x_validation, y_validation):
 def Recomendar(dados_usuario):
     scaler = StandardScaler()
     data_frame_dados = pd.DataFrame([dados_usuario])
+
+    file_path = 'content\\crop_recommendation.csv'
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    dataset_path = os.path.join(base_dir, file_path)
+
+    dataset = Carregar_Dataset(dataset_path)
+
+    dataset_encoded = Encoder_Y(dataset)
+
+    x_train, x_validation, y_train, y_validation = dividir_conjunto_de_dados(dataset)
+
+    x_train_scaled, x_validation_scaled = Normalizar_dados(x_train, x_validation)
+
+    Treino_Modelo = Treinar_DecisionTree(x_train_scaled, y_train)
+
     data_frame_dados.columns = x_train.columns
     scaler.fit(x_train)
     dados_scaled = scaler.transform(data_frame_dados)
@@ -77,8 +92,8 @@ def Recomendar(dados_usuario):
     
     return resultado_recomendacao
 
-def resultado():
-    rec = Recomendar(dados_usuario)
+def relatorio():
+    Recomendar()
     print("")
     print("                     Precisão:",accuracy, '\n')
     print(report)
@@ -122,42 +137,7 @@ if __name__ == '__main__':
     #print("                             Relatorio", '\n')
     #print(report)
 
-    dados_usuario = {
-        'N': 36,
-        'P': 60,
-        'K': 80,
-        'temperature': 20,
-        'humidity': 30,
-        'ph': 6,
-        'rainfall': 101
-    }
-    
-    mapeamento = {
-        0: 'Arroz ',
-        1:  'Milho ',
-        2:  'Grão-de-bico',
-        3:  'Feijão Roxo',
-        4:  'Guandu',
-        5:   'Feijão',
-        6:   '',
-        7:   '',
-        8:   'Lentilha',
-        9:   'Romã',
-        10:  'Banana ',
-        11:  'Manga ',
-        12:  'Uva ',
-        13:  'Melancia',
-        14:  'Melão',
-        15:  'Maçã',
-        16:  'Laranja',
-        17:  'Mamão',
-        18:  'Coco',
-        19:  'Algodão',
-        20:  'Juta',
-        21:  'Café'
-    }
-
-    result = Recomendar(dados_usuario)
+    result = Recomendar()
 
 
     

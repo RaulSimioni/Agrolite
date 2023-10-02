@@ -9,14 +9,15 @@ class EntradaDadosForm(forms.Form):
     N = forms.FloatField(label='Nitrogênio')
     P = forms.FloatField(label='Fósforo')
     K = forms.FloatField(label='Potássio')
-    Temperatura = forms.FloatField(label='Temperatura')
-    Umidade = forms.FloatField(label='Umidade')
-    Ph = forms.FloatField(label='Ph')
-    Chuva = forms.FloatField(label='Chuva')
+    temperatura = forms.FloatField(label='Temperatura')
+    umidade = forms.FloatField(label='Umidade')
+    ph = forms.FloatField(label='Ph')
+    chuva = forms.FloatField(label='Chuva')
 
 def index(request):
     return render(request, 'index.html')
 
+@csrf_exempt
 def recomendacao(request):
     if request.method == 'POST':
         form = EntradaDadosForm(request.POST)

@@ -1,47 +1,60 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
     <title>Document</title>
 </head>
+
 <body>
-    
+
     <header class="header">
         <div class="logo"></div>
-            <div>
-                <a href="{% url 'index' %}"><h1>AGROLITE</h1></a>
-            </div>
+        <div>
+            <a href="{% url 'index' %}">
+                <h1>AGROLITE</h1>
+            </a>
+        </div>
     </header>
 
 
-    <div id="resultado"></div>
-    
-    <div class="centralizar">
-        <input type="text" id="N" placeholder="Nitrogênio">
-        <input type="text" id="P" placeholder="Fósforo">
-        <input type="text" id="K" placeholder="Potássio">
-        <input type="text" id="Temperatura" placeholder="Temperatura">
-    </div>
-    <div class="centralizar2">
-        <input type="text" id="Umidade" placeholder="Umidade">
-        <input type="text" id="Ph" placeholder="Ph">
-        <input type="text" id="Chuva" placeholder="Chuva">
-    </div>
-    <div>
-        <form method="post" action="{% url 'recomendacao' %}">
+    <div class="Resultado"><h1 id="resultado"></h1></div>
+    <a href=""><button id="botao_voltar" class="button_enviar" style="display: none;">Voltar</button></a>
+
+
+
+    <form method="post" action="{% url 'recomendacao' %}">
+        <div class="centralizar">
+            <input maxlength="3" type="text" name="N" id="N" placeholder="Nitrogênio">
+            <input maxlength="3" type="text" name="P" id="P" placeholder="Fósforo">
+            <input maxlength="3" type="text" name="K" id="K" placeholder="Potássio">
+            <input maxlength="2" type="text" name="temperatura" id="Temperatura" placeholder="Temperatura">
+        </div>
+        <div class="centralizar2">
+            <input maxlength="2" type="text" name="umidade" id="Umidade" placeholder="Umidade">
+            <input maxlength="1" type="text" name="ph" id="Ph" placeholder="Ph">
+            <input maxlength="3" type="text" name="chuva" id="Chuva" placeholder="Chuva">
+        </div>
+        <div>
             {% csrf_token %}
             {{ form.as_p }}
-            <button class="button_enviar" id="botao" type="button">Enviar</button>
-        </form>
+            <button class="button_enviar" id="botao" type="submit">Enviar</button>
+
+        </div>
+    </form>
+
+    <div id="customPopup" class="popup">
+        <p>Preencha todos os campos antes de enviar.</p>
+        <button id="closePopup">Fechar</button>
     </div>
     
 
 
     <script>
-        document.querySelector("form").addEventListener("submit", function(event) {
+        document.querySelector("form").addEventListener("submit", function (event) {
             event.preventDefault(); // Evita que o formulário seja enviado por padrão
 
             var formData = new FormData(this);
@@ -49,11 +62,46 @@
                 method: "POST",
                 body: formData
             })
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById("resultado").textContent = "Recomendação: " + data.recomendacao;
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("resultado").textContent = data.recomendacao;
+                });
+        });
+
+        document.addEventListener('DOMContentLoaded', function(){
+            const submitButton = document.getElementById('botao');
+            const botaoVoltar = document.getElementById('botao_voltar')
+            const input1 = document.getElementById('N');
+            const input2 = document.getElementById('P');
+            const input3 = document.getElementById('K');
+            const input4 = document.getElementById('Temperatura');
+            const input5 = document.getElementById('Umidade');
+            const input6 = document.getElementById('Ph');
+            const input7 = document.getElementById('Chuva');
+            const customPopup = document.getElementById('customPopup');
+            const closePopupButton = document.getElementById('closePopup')
+
+            submitButton.addEventListener('click', function(){
+                    if (input1.value.trim() === '' || input2.value.trim() === '' || input3.value.trim() === '' || input4.value.trim() === '' || input5.value.trim() === '' || input6.value.trim() === '' || input7.value.trim() === ''){
+                        customPopup.style.display = 'block'
+                    } else {
+                        input1.style.display = 'none';
+                        input2.style.display = 'none';
+                        input3.style.display = 'none';
+                        input4.style.display = 'none';
+                        input5.style.display = 'none';
+                        input6.style.display = 'none';
+                        input7.style.display = 'none';
+                        submitButton.style.display = 'none';
+                        botaoVoltar.style.display = 'block';
+                    }
+            });
+
+            closePopupButton.addEventListener('click', function() {
+                customPopup.style.display = 'none'; // Ocultar o popup
             });
         });
     </script>
 </body>
+
 </html>

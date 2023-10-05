@@ -21,7 +21,9 @@
     </header>
 
 
-    <div class="Resultado"><h1 id="resultado"></h1></div>
+    <div class="Resultado">
+        <h1 id="resultado"></h1>
+    </div>
     <a href=""><button id="botao_voltar" class="button_enviar" style="display: none;">Voltar</button></a>
 
 
@@ -47,15 +49,15 @@
     </form>
 
     <div id="customPopup" class="popup">
-        <p>Preencha todos os campos antes de enviar.</p>
-        <button id="closePopup">Fechar</button>
+        <p class="popup-text"><b>Preencha todos os campos corretamente antes de enviar.</b></p>
+        <button onclick="" class="close" id="closePopup">Fechar</button>
     </div>
-    
+
 
 
     <script>
         document.querySelector("form").addEventListener("submit", function (event) {
-            event.preventDefault(); // Evita que o formulário seja enviado por padrão
+            event.preventDefault();
 
             var formData = new FormData(this);
             fetch(this.action, {
@@ -68,7 +70,7 @@
                 });
         });
 
-        document.addEventListener('DOMContentLoaded', function(){
+        document.addEventListener('DOMContentLoaded', function () {
             const submitButton = document.getElementById('botao');
             const botaoVoltar = document.getElementById('botao_voltar')
             const input1 = document.getElementById('N');
@@ -81,24 +83,46 @@
             const customPopup = document.getElementById('customPopup');
             const closePopupButton = document.getElementById('closePopup')
 
-            submitButton.addEventListener('click', function(){
-                    if (input1.value.trim() === '' || input2.value.trim() === '' || input3.value.trim() === '' || input4.value.trim() === '' || input5.value.trim() === '' || input6.value.trim() === '' || input7.value.trim() === ''){
-                        customPopup.style.display = 'block'
-                    } else {
-                        input1.style.display = 'none';
-                        input2.style.display = 'none';
-                        input3.style.display = 'none';
-                        input4.style.display = 'none';
-                        input5.style.display = 'none';
-                        input6.style.display = 'none';
-                        input7.style.display = 'none';
-                        submitButton.style.display = 'none';
-                        botaoVoltar.style.display = 'block';
-                    }
+            input1.addEventListener('input', function() {
+                this.value = this.value.replace(/\D/g, '');
+            });
+            input2.addEventListener('input', function() {
+                this.value = this.value.replace(/\D/g, '');
+            });
+            input3.addEventListener('input', function() {
+                this.value = this.value.replace(/\D/g, '');
+            });
+            input4.addEventListener('input', function() {
+                this.value = this.value.replace(/\D/g, '');
+            });
+            input5.addEventListener('input', function() {
+                this.value = this.value.replace(/\D/g, '');
+            });
+            input6.addEventListener('input', function() {
+                this.value = this.value.replace(/\D/g, '');
+            });
+            input7.addEventListener('input', function() {
+                this.value = this.value.replace(/\D/g, '');
             });
 
-            closePopupButton.addEventListener('click', function() {
-                customPopup.style.display = 'none'; // Ocultar o popup
+            submitButton.addEventListener('click', function () {
+                if (input1.value.trim() === '' || input2.value.trim() === '' || input3.value.trim() === '' || input4.value.trim() === '' || input5.value.trim() === '' || input6.value.trim() === '' || input7.value.trim() === '') {
+                    customPopup.style.display = 'block'
+                } else {
+                    input1.style.display = 'none';
+                    input2.style.display = 'none';
+                    input3.style.display = 'none';
+                    input4.style.display = 'none';
+                    input5.style.display = 'none';
+                    input6.style.display = 'none';
+                    input7.style.display = 'none';
+                    submitButton.style.display = 'none';
+                    botaoVoltar.style.display = 'block';
+                }
+            });
+
+            closePopupButton.addEventListener('click', function () {
+                customPopup.style.display = 'none';
             });
         });
     </script>

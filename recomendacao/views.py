@@ -22,7 +22,7 @@ def recomendacao(request):
     if request.method == 'POST':
         form = EntradaDadosForm(request.POST)
         if form.is_valid():
-            dados_usuario = form.cleaned_data  # Obtém os dados do formulário
+            dados_usuario = form.cleaned_data
             recomendacao = Recomendar(dados_usuario)
             return JsonResponse({'recomendacao': recomendacao})
         return JsonResponse({'error': 'Método não suportado'}, status=405)

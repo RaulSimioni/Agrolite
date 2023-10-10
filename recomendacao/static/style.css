@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
 
-body,
-html {
+.corpo {
     height: 100%;
     margin: 0;
     padding: 0;
@@ -113,7 +112,7 @@ h1 {
     height: 55px;
 }
 
-input[type="text"] {
+.text_box_recomendacao {
     align-items: center;
     text-align: center;
     padding: 12px;

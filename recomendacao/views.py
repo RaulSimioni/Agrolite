@@ -17,6 +17,9 @@ class EntradaDadosForm(forms.Form):
 def index(request):
     return render(request, 'index.html')
 
+def login(request):
+    return render(request, 'registration/login.html')
+
 @csrf_exempt
 def recomendacao(request):
     if request.method == 'POST':

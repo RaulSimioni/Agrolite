@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html class="corpo" lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -9,7 +9,7 @@
     <title>Document</title>
 </head>
 
-<body>
+<body class="corpo">
 
     <header class="header">
         <div class="logo"></div>
@@ -30,15 +30,15 @@
 
     <form method="post" action="{% url 'recomendacao' %}">
         <div class="centralizar">
-            <input maxlength="3" type="text" name="N" id="N" placeholder="Nitrogênio">
-            <input maxlength="3" type="text" name="P" id="P" placeholder="Fósforo">
-            <input maxlength="3" type="text" name="K" id="K" placeholder="Potássio">
-            <input maxlength="2" type="text" name="temperatura" id="Temperatura" placeholder="Temperatura">
+            <input class="text_box_recomendacao" maxlength="3" type="text" name="N" id="N" placeholder="Nitrogênio">
+            <input class="text_box_recomendacao" maxlength="3" type="text" name="P" id="P" placeholder="Fósforo">
+            <input class="text_box_recomendacao" maxlength="3" type="text" name="K" id="K" placeholder="Potássio">
+            <input class="text_box_recomendacao" maxlength="2" type="text" name="temperatura" id="Temperatura" placeholder="Temperatura">
         </div>
         <div class="centralizar2">
-            <input maxlength="2" type="text" name="umidade" id="Umidade" placeholder="Umidade">
-            <input maxlength="1" type="text" name="ph" id="Ph" placeholder="Ph">
-            <input maxlength="3" type="text" name="chuva" id="Chuva" placeholder="Chuva">
+            <input class="text_box_recomendacao" maxlength="2" type="text" name="umidade" id="Umidade" placeholder="Umidade">
+            <input class="text_box_recomendacao" maxlength="1" type="text" name="ph" id="Ph" placeholder="Ph">
+            <input class="text_box_recomendacao" maxlength="3" type="text" name="chuva" id="Chuva" placeholder="Chuva">
         </div>
         <div>
             {% csrf_token %}

@@ -70,7 +70,7 @@ def Recomendar(dados_usuario):
     scaler = StandardScaler()
     data_frame_dados = pd.DataFrame([dados_usuario])
 
-    file_path = 'content\\crop_recommendation.csv'
+    file_path = 'content//crop_recommendation.csv'
     base_dir = os.path.dirname(os.path.abspath(__file__))
     dataset_path = os.path.join(base_dir, file_path)
 
@@ -102,7 +102,7 @@ if __name__ == '__main__':
 
     #Aqui estou carregando meu dataset que esta na pasta 'content'
     #usei o import os para encontrar o dataset sem precisar colocar o diretorio manualmente
-    file_path = 'content\\crop_recommendation.csv'
+    file_path = 'content//crop_recommendation.csv'
     base_dir = os.path.dirname(os.path.abspath(__file__))
     dataset_path = os.path.join(base_dir, file_path)
     dataset = Carregar_Dataset(dataset_path)

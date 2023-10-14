@@ -24,10 +24,18 @@
 .popup-text {
     position: relative;
     top: 50%;
-    transform: translateY(-90%); /* Centraliza o texto verticalmente */
+    transform: translateY(-90%);
+    /* Centraliza o texto verticalmente */
 }
 
-.close{
+.login_logo{
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.close {
     background: #dc3545;
     color: #fff;
     border-radius: 10px;
@@ -56,7 +64,7 @@
     padding: 20px;
     border: 1px solid #ccc;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-  }
+}
 
 
 .Resultado {
@@ -92,7 +100,7 @@
     gap: 10px;
 }
 
-h1 {
+header h1 {
     color: #fff;
     font-size: 50px;
     margin: 0;
@@ -111,6 +119,11 @@ h1 {
     width: 75px;
     height: 55px;
 }
+.logo_login {
+    background-image: url('Images/logo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
 
 .text_box_recomendacao {
     align-items: center;
@@ -122,6 +135,101 @@ h1 {
     font-size: 14px;
     outline: none;
 }
+
+.login {
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30vh auto;
+}
+
+body {
+
+    background-color: #000;
+}
+
+
+.card {
+
+    width: 400px;
+    border: none;
+
+}
+
+
+
+
+.btr {
+
+    border-top-right-radius: 5px !important;
+}
+
+
+.btl {
+
+    border-top-left-radius: 5px !important;
+}
+
+.btn-dark {
+    color: #fff;
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+
+.btn-dark:hover {
+    color: #fff;
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+
+.nav-pills {
+
+    display: table !important;
+    width: 100%;
+}
+
+.nav-pills .nav-link {
+    border-radius: 0px;
+    border-bottom: 1px solid #0d6efd40;
+
+}
+
+.nav-item {
+    display: table-cell;
+    background: #0d6efd2e;
+}
+
+
+.form {
+
+    padding: 10px;
+    height: 300px;
+}
+
+.form input {
+
+    margin-bottom: 12px;
+    border-radius: 3px;
+}
+
+
+.form input:focus {
+
+    box-shadow: none;
+}
+
+
+.form button {
+
+    margin-top: 20px;
+}
+
+
+
+
 
 
 input[type="text"]::placeholder {
@@ -135,10 +243,16 @@ input[type="text"]:focus {
 }
 
 .highlight-empty {
-    border-bottom: 2px solid red; /* ou qualquer estilo desejado de sublinhado */
-  }
+    border-bottom: 2px solid red;
+    /* ou qualquer estilo desejado de sublinhado */
+}
 
-
+.login_title {
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 .header {
     background-color: rgb(59, 133, 91);

@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
@@ -57,7 +58,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            BASE_DIR / "templates"
+            os.path.join(BASE_DIR, '/accounts/register/'),
+            os.path.join(BASE_DIR,  'recomendacao/templates/'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {

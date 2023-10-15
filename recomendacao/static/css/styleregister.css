@@ -1,0 +1,15 @@
+body {
+    margin: 20px; /* Add margin to the entire body */
+}
+.card {
+    margin: 20px; /* Add margin around the card */
+}
+.rounded-image {
+    border-radius: 20px; /* Add border-radius to the image */
+}
+.center-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Set a fixed height to the container */   
+}

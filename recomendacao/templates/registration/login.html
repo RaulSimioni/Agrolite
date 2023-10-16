@@ -1,4 +1,5 @@
 {% load static %}
+{% load widget_tweaks %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,43 +10,58 @@
     <meta name="keywords" content="agriculture, farming, login">
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'fa/css/all.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
 
     <title>Agrolite - Login</title>
 </head>
 
-<body>
+<body class="bg-dark">
     <section class="text-center text-lg-start">
-        <div class="card mb-3">
-            <div class="row g-0 d-flex align-items-center">
-                <div class="col-lg-4 d-none d-lg-flex">
-                    <img src="https://www.folhadelondrina.com.br/img/inline/3130000/0x800/Maior-produtor-nacional-de-tabaco-esta-no-Parana0313209002202111220824.webp?fallback=https%3A%2F%2Fwww.folhadelondrina.com.br%2Fimg%2Finline%2F3130000%2FMaior-produtor-nacional-de-tabaco-esta-no-Parana0313209002202111220824.jpg%3Fxid%3D5522779&xid=5522779"
-                        alt="Agriculture Image"
-                        class="w-100 rounded-t-5 rounded-tr-lg-0 rounded-bl-lg-5 rounded-image" />
-                </div>
-                <div class="col-lg-8">
-                    <div class="center-content"> <!-- Apply the centering class here -->
-                        <h1>AGROLITE</h1>
+        <div class="d-flex vh-100 h-100">
+            <div class="card mx-auto my-auto custom-card w-75 h-75">
+                <div class="row g-0 d-flex align-items-center h-100">
+                    <div class="col-lg-4 d-none d-lg-flex">
+                        <img src="https://www.folhadelondrina.com.br/img/inline/3130000/0x800/Maior-produtor-nacional-de-tabaco-esta-no-Parana0313209002202111220824.webp?fallback=https%3A%2F%2Fwww.folhadelondrina.com.br%2Fimg%2Finline%2F3130000%2FMaior-produtor-nacional-de-tabaco-esta-no-Parana0313209002202111220824.jpg%3Fxid%3D5522779&xid=5522779"
+                            alt="Agriculture Image"
+                            class="w-100 rounded-t-5 rounded-tr-lg-0 rounded-bl-lg-5 rounded-image img-fluid rounded m-4" />
                     </div>
-                    <div class="card-body py-5 px-md-5">
-                        <form>
-                            {% csrf_token %}
-                            <div class="form-group">
-                                <label for="formUsername">Email</label>
-                                <input type="text" id="formEmail" name="username" class="form-control mx-auto col-lg-6 mb-4" />
+                    <div class="col-lg-8">
+                        <div class="center-content h-100 d-flex flex-column justify-content-center mb-4"> <!-- Apply the centering class here -->
+                            <h1>AGROLITE</h1>
+                        </div>
+                        <div class="card-body py-5 px-md-5">
+                            <div class="container">
+                                {% if messages %}
+                                    {% for message in messages %}
+                                        {{ message }}
+                                    {% endfor %}
+                                {% endif %}
+            
+                                {% block content %}
+                                {% endblock %}
                             </div>
-                            <div class="form-group">
-                                <label for="formPassword">Senha</label>
-                                <input type="password" id="formPassword" name="password" class="form-control mx-auto col-lg-6 mb-4" />
-                            </div>
+                            <form action="" method="POST">
+                                {% csrf_token %}
+
+                                <div class="form-group">
+                                    <label for="formUsuario"><b>Nome De Usuario</b></label>
+                                    <div>
+                                        {% render_field form.username type="text" class="form-control mx-auto mb-4" id="exampleInputUsername" placeholder="Nome De Usuario" style="width: 450px" %}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="formPassword"><b>Senha</b></label>
+                                    <div>
+                                        {% render_field form.password type="password" class="form-control mx-auto mb-4" id="exampleInputUsername" placeholder="Senha" style="width: 450px" %}
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary mx-auto btn-block mb-4 mt-4" style="width: 150px;">Entrar</button>
+                                <p>Não tem uma conta? <a href="{% url 'register' %}">Registre-se agora</a></p>
+                            </form>
+                        </div>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-block mb-4 col-lg-4 mx-auto">Entrar</button>
-                    <p>Não tem uma conta? <a href="{% url 'register' %}">Registre-se agora</a></p>
-                    </form>
                 </div>
             </div>
-        </div>
         </div>
     </section>
 </body>

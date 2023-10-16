@@ -5,6 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, logout
 from django.contrib.auth import login as login_django
 from django.http import JsonResponse
+from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import CreateView
 from .recomendation import *
@@ -33,7 +34,7 @@ def register(request):
             user = authenticate(username=username, password=password)
              
             login_django(request, user)
-            return render(request, 'index.html')
+            return redirect('index')
         else:
             form = UserCreationForm()
     context = {'form' :form}
@@ -42,15 +43,19 @@ def register(request):
 def login(request):
     if request.method == 'POST':
         username = request.POST['username']
-        password = request.POST['password1']
+        password = request.POST['password']
         user = authenticate(username=username, password=password)
         if user is not None:
-            login(request, user)
-            return render(request, 'index.html')
+            login_django(request, user)
+            return redirect(request, 'index.html')
         else:
-            print('sei la')
-    else: 
-        return render(request, 'login.html')
+            messages.success(request, ("Deu ruim ae"))
+            return redirect('login')
+    return render(request, 'login.html')
+    
+def logout_user(request):
+    logout(request)
+    return redirect('index')
 
 @csrf_exempt
 def recomendacao(request):

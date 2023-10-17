@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'fa/css/all.min.css' %}">
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
-
     <title>Agrolite - Login</title>
 
 </head>
@@ -19,7 +18,7 @@
 <body class="bg-dark">
     <section class="text-center text-lg-start">
         <div class="d-flex vh-100 h-100">
-            <div class="card mx-auto my-auto custom-card w-75 h-75">
+            <div class="card mx-auto my-auto custom-card">
                 <div class="row g-0 d-flex align-items-center h-100">
                     <div class="col-lg-4 d-none d-lg-flex">
                         <img src="https://www.folhadelondrina.com.br/img/inline/3130000/0x800/Maior-produtor-nacional-de-tabaco-esta-no-Parana0313209002202111220824.webp?fallback=https%3A%2F%2Fwww.folhadelondrina.com.br%2Fimg%2Finline%2F3130000%2FMaior-produtor-nacional-de-tabaco-esta-no-Parana0313209002202111220824.jpg%3Fxid%3D5522779&xid=5522779"
@@ -53,16 +52,16 @@
                                 <div class="form-group">
                                     <label for="formPassword"><b>Senha</b></label>
                                     <div>
-                                        {% render_field form.password1 type="password" class="form-control mx-auto mb-4" id="exampleInputUsername" placeholder="Senha" style="width: 450px" %}
+                                        {% render_field form.password1 type="password" class="form-control mx-auto mb-4" id="exampleInputPassword" placeholder="Senha" style="width: 450px" %}
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="formPassword"><b>Confirmar Senha</b></label>
                                     <div>
-                                        {% render_field form.password2 type="password" class="form-control mx-auto mb-4" id="exampleInputUsername" placeholder="Senha" style="width: 450px" %}
+                                        {% render_field form.password2 type="password" class="form-control mx-auto mb-4" id="exampleInputConfirm" placeholder="Confirmar Senha" style="width: 450px" %}
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary mx-auto btn-block mb-4 mt-4" style="width: 150px;">Cadastrar</button>
+                                <button type="submit" class="btn btn-primary mx-auto btn-block mb-4 mt-4" style="width: 150px;">Entrar</button>
                             </form>
                         </div>
                     </div>

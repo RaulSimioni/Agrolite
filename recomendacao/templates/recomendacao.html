@@ -24,24 +24,25 @@
     <div class="Resultado">
         <h1 id="resultado"></h1>
     </div>
-    <a href=""><button id="botao_voltar" class="button_enviar" style="display: none;">Voltar</button></a>
-        <div class="centralizar">
-            <input class="text_box_recomendacao" maxlength="3" type="text" name="N" id="N" placeholder="Nitrogênio">
-            <input class="text_box_recomendacao" maxlength="3" type="text" name="P" id="P" placeholder="Fósforo">
-            <input class="text_box_recomendacao" maxlength="3" type="text" name="K" id="K" placeholder="Potássio">
-            <input class="text_box_recomendacao" maxlength="2" type="text" name="temperatura" id="Temperatura" placeholder="Temperatura">
-        </div>
-        <div class="centralizar2">
-            <input class="text_box_recomendacao" maxlength="2" type="text" name="umidade" id="Umidade" placeholder="Umidade">
-            <input class="text_box_recomendacao" maxlength="1" type="text" name="ph" id="Ph" placeholder="Ph">
-            <input class="text_box_recomendacao" maxlength="3" type="text" name="chuva" id="Chuva" placeholder="Chuva">
-        </div>
-        <div>
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button class="button_enviar" id="botao" type="submit">Enviar</button>
 
-        </div>
+    <form action="{% url 'recomendacao' %}" method="POST">
+        <a href=""><button id="botao_voltar" class="button_enviar" style="display: none;">Voltar</button></a>
+            <div class="centralizar">
+                <input class="text_box_recomendacao" maxlength="3" type="text" name="N" id="N" placeholder="Nitrogênio">
+                <input class="text_box_recomendacao" maxlength="3" type="text" name="P" id="P" placeholder="Fósforo">
+                <input class="text_box_recomendacao" maxlength="3" type="text" name="K" id="K" placeholder="Potássio">
+                <input class="text_box_recomendacao" maxlength="2" type="text" name="temperatura" id="Temperatura" placeholder="Temperatura">
+            </div>
+            <div class="centralizar2">
+                <input class="text_box_recomendacao" maxlength="2" type="text" name="umidade" id="Umidade" placeholder="Umidade">
+                <input class="text_box_recomendacao" maxlength="1" type="text" name="ph" id="Ph" placeholder="Ph">
+                <input class="text_box_recomendacao" maxlength="3" type="text" name="chuva" id="Chuva" placeholder="Chuva">
+            </div>
+            <div>
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="button_enviar" id="botao" type="submit">Enviar</button>
+            </div>
     </form>
 
     <div id="customPopup" class="popup">
@@ -50,20 +51,21 @@
     </div>
 
 
-
     <script>
-        document.querySelector("form").addEventListener("submit", function (event) {
-            event.preventDefault();
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelector("form").addEventListener("submit", function (event) {
+                event.preventDefault();
 
-            var formData = new FormData(this);
-            fetch(this.action, {
-                method: "POST",
-                body: formData
-            })
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById("resultado").textContent = data.recomendacao;
-                });
+                var formData = new FormData(this);
+                fetch(this.action, {
+                    method: "POST",
+                    body: formData
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById("resultado").textContent = data.recomendacao;
+                    });
+            });
         });
 
         document.addEventListener('DOMContentLoaded', function () {

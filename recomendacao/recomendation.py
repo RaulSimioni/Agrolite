@@ -37,7 +37,7 @@ def Carregar_Dataset(path):
     dataset.head(30)
     return dataset
 
-def Encoder_Y(dataset):
+def Encoder_Y(dataset): 
     Label_encoder = LabelEncoder()
     encoded_Y = Label_encoder.fit_transform(dataset['label'])
     dataset['label'] = encoded_Y
@@ -136,8 +136,6 @@ if __name__ == '__main__':
     #print('\n', "            Precisao DecisionTree: ", accuracy, '\n')
     #print("                             Relatorio", '\n')
     #print(report)
-
-    result = Recomendar()
 
 
     

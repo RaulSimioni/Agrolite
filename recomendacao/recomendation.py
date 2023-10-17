@@ -135,7 +135,9 @@ if __name__ == '__main__':
 
     #print('\n', "            Precisao DecisionTree: ", accuracy, '\n')
     #print("                             Relatorio", '\n')
-    #print(report)
+    #print(report)]
+
+    relatorio()
 
 
     

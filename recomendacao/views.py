@@ -32,10 +32,10 @@ def register(request):
             username = form.cleaned_data['username']
             password = form.cleaned_data['password1']
             user = authenticate(username=username, password=password)
-             
             login_django(request, user)
             return redirect('index')
         else:
+            messages.error(request, 'A confirmação de senha não corresponde à senha original !')
             form = UserCreationForm()
     context = {'form' :form}
     return render(request, 'register.html', context)
@@ -47,10 +47,11 @@ def login(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             login_django(request, user)
-            return redirect(request, 'index.html')
+            return redirect('index.html')
         else:
-            messages.success(request, ("Deu ruim ae"))
-            return redirect('login')
+            messages.error(request, "Nome de Usuário ou senha incorretas !")
+            return redirect('login.html')
+        
     return render(request, 'login.html')
     
 def logout_user(request):

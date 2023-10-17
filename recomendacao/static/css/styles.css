@@ -13,3 +13,9 @@ body {
     max-width: 600px; /* Ajuste o tamanho máximo do card */
     /* Adicione outras propriedades de estilo conforme necessário */
 }
+
+.alert-personalizado {
+    padding: 10px 20px;
+    font-size: 14px;
+    border-radius: 3px;
+}

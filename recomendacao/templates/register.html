@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'fa/css/all.min.css' %}">
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
     <title>Agrolite - Login</title>
 
 </head>
@@ -26,19 +27,18 @@
                             class="w-100 rounded-t-5 rounded-tr-lg-0 rounded-bl-lg-5 rounded-image img-fluid rounded m-4" />
                     </div>
                     <div class="col-lg-8">
-                        <div class="center-content h-100 d-flex flex-column justify-content-center mb-4"> <!-- Apply the centering class here -->
-                            <h1>AGROLITE</h1>
+                        <div class="center-content h-100 d-flex flex-column justify-content-center mt-4"> <!-- Apply the centering class here -->
+                            <h1 class="mb-2">AGROLITE</h1>
                         </div>
                         <div class="card-body py-5 px-md-5">
-                            <div class="container">
+                            <div>
                                 {% if messages %}
-                                    {% for message in messages %}
-                                        {{ message }}
-                                    {% endfor %}
+                                    <ul class="alert alert-danger" style="margin-bottom: 50px;">
+                                        {% for message in messages %}
+                                            <li {% if message.tags %} class="{{ message.tags }} "{% endif %}>{{ message }}</li>
+                                        {% endfor %}
+                                    </ul>
                                 {% endif %}
-            
-                                {% block content %}
-                                {% endblock %}
                             </div>
                             <form action="" method="POST">
                                 {% csrf_token %}

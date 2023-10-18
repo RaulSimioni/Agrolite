@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
+
+body html{
+    background-color: gray;
+}
+
+.titulo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 50px;
+}
+
+.titulo h1{
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 55px;
+    margin-top: 30px;
+}
+
+.button-custom{
+    background-color: darkgray;
+    color: wheat;
+    width: 100px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

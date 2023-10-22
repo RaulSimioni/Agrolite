@@ -1,13 +1,13 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, logout
 from django.contrib.auth import login as login_django
 from django.http import JsonResponse
 from django.contrib import messages
+from .models import Historico
 from django.views.decorators.csrf import csrf_exempt
-from django.views.generic import CreateView
+
 from .recomendation import *
 
 class EntradaDadosForm(forms.Form):
@@ -34,11 +34,11 @@ def register(request):
             user = authenticate(username=username, password=password)
             login_django(request, user)
             return redirect('index')
-        else:
-            messages.error(request, 'A confirmação de senha não corresponde à senha original !')
-            form = UserCreationForm()
     context = {'form' :form}
     return render(request, 'register.html', context)
+
+def Historico(request):
+    return render(request, 'historico.html')
 
 def login(request):
     if request.method == 'POST':
@@ -65,6 +65,10 @@ def recomendacao(request):
         if form.is_valid():
             dados_usuario = form.cleaned_data
             recomendacao = Recomendar(dados_usuario)
+            if request.user.is_authenticated:
+                historico = Historico(usuario=request.user, entrada_usuario=dados_usuario, resposta_ia=recomendacao)
+                historico.save()
+
             return JsonResponse({'recomendacao': recomendacao})
         return JsonResponse({'error': 'Método não suportado'}, status=405)
     return render(request, 'recomendacao.html')

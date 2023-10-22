@@ -1,8 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
 
-body html{
-    background-color: gray;
-}
+
 
 .titulo{
     display: flex;
@@ -18,8 +16,8 @@ body html{
 }
 
 .button-custom{
-    background-color: darkgray;
-    color: wheat;
+    background-color: rgb(106, 199, 70);
+    color: rgb(0, 0, 0);
     width: 100px;
     height: 50px;
     display: flex;

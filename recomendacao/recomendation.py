@@ -8,28 +8,28 @@ from sklearn.metrics import accuracy_score
 from sklearn.tree import DecisionTreeClassifier
 
 mapeamento = {
-        0:  'Maçã 🍎',
-        1:  'Banana 🍌',
+        0:  'Maçã ',
+        1:  'Banana ',
         2:  'Vigna mungo',
         3:  'Grão-de-bico',
-        4:  'Coco 🥥',
+        4:  'Coco ',
         5:  'Café ☕',
         6:  'Algodão',
-        7:  'Uva 🍇',
-        8:  'Juta 🧶',
+        7:  'Uva ',
+        8:  'Juta ',
         9:  'Feijão Roxo',
         10: 'Lentilha',
-        11: 'Milho 🌽',
-        12: 'Manga 🥭',
+        11: 'Milho ',
+        12: 'Manga ',
         13: 'Vigna aconitifolia',
         14: 'Vigna radiata',
-        15: 'Melão 🍈',
-        16: 'Laranja 🍊',
+        15: 'Melão ',
+        16: 'Laranja ',
         17: 'Mamão',
         18: 'Guandu',
         19: 'Romã',
-        20: 'Arroz 🍚',
-        21: 'Melancia 🍉'
+        20: 'Arroz ',
+        21: 'Melancia '
     }
 
 def Carregar_Dataset(path):
@@ -70,7 +70,7 @@ def Recomendar(dados_usuario):
     scaler = StandardScaler()
     data_frame_dados = pd.DataFrame([dados_usuario])
 
-    file_path = 'content\\crop_recommendation.csv'
+    file_path = 'content//crop_recommendation.csv'
     base_dir = os.path.dirname(os.path.abspath(__file__))
     dataset_path = os.path.join(base_dir, file_path)
 
@@ -102,7 +102,7 @@ if __name__ == '__main__':
 
     #Aqui estou carregando meu dataset que esta na pasta 'content'
     #usei o import os para encontrar o dataset sem precisar colocar o diretorio manualmente
-    file_path = 'content\\crop_recommendation.csv'
+    file_path = 'content//crop_recommendation.csv'
     base_dir = os.path.dirname(os.path.abspath(__file__))
     dataset_path = os.path.join(base_dir, file_path)
     dataset = Carregar_Dataset(dataset_path)
@@ -136,8 +136,6 @@ if __name__ == '__main__':
     #print('\n', "            Precisao DecisionTree: ", accuracy, '\n')
     #print("                             Relatorio", '\n')
     #print(report)]
-
-    relatorio()
 
 
     

@@ -1,12 +1,104 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Histórico de Recomendações</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-4">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">AGROLITE</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="{% url 'index' %}" class="nav-link mx-2" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link mx-2" href="#">Oque é Agrolite?</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'recomendacao' %}" class="nav-link mx-2" href="#">Recomendar</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="{% url 'historico' %}" class="nav-link mx-2" href="#">Historico</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div>
+            {% if user.is_authenticated %}
+                <ul class="navbar-nav">
+                    <li class="nav-item mx-4">
+                        <a href="{% url 'logout_user' %}" class="nav-link btn btn-danger btn-block mx-4" href="#">LOGOUT</a>
+                    </li>
+                </ul>
+            {% else %}
+                <ul class="navbar-nav">
+                    <li class="nav-item mx-4">
+                        <a href="{% url 'login' %}" class="nav-link btn btn-success btn-block mx-4" href="#">Login</a>
+                    </li>
+                </ul>
+            {% endif %}
+        </div>
+    </nav>
+    <div class="container">
+        <header class="my-4 text-center">
+            <h1>Histórico de Recomendações</h1>
+        </header>
+
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th class="text-center">Data de Entrada</th>
+                    <th class="text-center">Nitrogênio (N)</th>
+                    <th class="text-center">Fósforo (P)</th>
+                    <th class="text-center">Potássio (K)</th>
+                    <th class="text-center">Temperatura</th>
+                    <th class="text-center">Umidade</th>
+                    <th class="text-center">pH</th>
+                    <th class="text-center">Chuva</th>
+                    <th class="text-center">Resposta da IA</th>
+                    <th class="text-center">Deletar</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entry in historico_entries %}
+                <tr>
+                    <td class="text-center">{{ entry.data_entrada }}</td>
+                    <td class="text-center">{{ entry.n }}</td>
+                    <td class="text-center">{{ entry.p }}</td>
+                    <td class="text-center">{{ entry.k }}</td>
+                    <td class="text-center">{{ entry.temperatura }}</td>
+                    <td class="text-center">{{ entry.umidade }}</td>
+                    <td class="text-center">{{ entry.ph }}</td>
+                    <td class="text-center">{{ entry.chuva }}</td>
+                    <td class="text-center">{{ entry.resposta_ia }}</td>
+                    <td>
+                        <form method="post" action="{% url 'deletar_historico' entry.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger bi bi-trash button-delete mx-auto"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+                                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+                              </svg>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

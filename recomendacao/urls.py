@@ -7,5 +7,6 @@ urlpatterns = [
     path("register/", views.register, name='register'),
     path("recomendacao/", views.recomendacao, name='recomendacao'),
     path("logout_user/", views.logout_user, name='logout_user'),
-    path("historico/", views.Historico, name='historico'),
+    path("historico/", views.Historico_view, name='historico'),
+    path('deletar_historico/<int:historico_id>/', views.deletar_historico, name='deletar_historico'),
 ]

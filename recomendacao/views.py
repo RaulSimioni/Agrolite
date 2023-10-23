@@ -4,8 +4,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, logout
 from django.contrib.auth import login as login_django
 from django.http import JsonResponse
-from django.contrib import messages
 from .models import Historico
+from django.http import HttpResponse
+from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 
 from .recomendation import *
@@ -37,8 +38,17 @@ def register(request):
     context = {'form' :form}
     return render(request, 'register.html', context)
 
-def Historico(request):
-    return render(request, 'historico.html')
+def Historico_view(request):
+    historico_entries = Historico.objects.filter(usuario=request.user)
+    return render(request, 'historico.html', {'historico_entries': historico_entries})
+
+
+def deletar_historico(request, historico_id):
+    historico = Historico.objects.get(id=historico_id)
+    if historico.usuario == request.user:
+        historico.delete()
+    return redirect('historico')
+    
 
 def login(request):
     if request.method == 'POST':
@@ -65,10 +75,20 @@ def recomendacao(request):
         if form.is_valid():
             dados_usuario = form.cleaned_data
             recomendacao = Recomendar(dados_usuario)
-            if request.user.is_authenticated:
-                historico = Historico(usuario=request.user, entrada_usuario=dados_usuario, resposta_ia=recomendacao)
-                historico.save()
-
+            # Crie uma instância do modelo Historico e salve os dados
+            historico = Historico(
+                usuario=request.user,  # Substitua isso pelo usuário real (se disponível)
+                n=dados_usuario['N'],
+                p=dados_usuario['P'],
+                k=dados_usuario['K'],
+                temperatura=dados_usuario['temperatura'],
+                umidade=dados_usuario['umidade'],
+                ph=dados_usuario['ph'],
+                chuva=dados_usuario['chuva'],
+                resposta_ia=recomendacao
+            )
+            historico.save()
+            
             return JsonResponse({'recomendacao': recomendacao})
         return JsonResponse({'error': 'Método não suportado'}, status=405)
     return render(request, 'recomendacao.html')

@@ -193,16 +193,8 @@ body {
     width: 100%;
 }
 
-.nav-pills .nav-link {
-    border-radius: 0px;
-    border-bottom: 1px solid #0d6efd40;
 
-}
 
-.nav-item {
-    display: table-cell;
-    background: #0d6efd2e;
-}
 
 
 .form {
@@ -362,6 +354,15 @@ input[type="text"]:focus {
     }
 
     100% {}
+}
+
+.button-form{
+    max-width: 200px;
+    margin: 10px;
+    height: 50px;
+    text-align: center;
+    margin-left: 2px;
+    margin-right: 2px;
 }
 
 

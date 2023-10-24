@@ -22,6 +22,10 @@
     margin-top: 30px;
 }
 
+.invisible{
+    display: none;
+}
+
 .button-custom{
     background-color: rgb(106, 199, 70);
     color: rgb(0, 0, 0);

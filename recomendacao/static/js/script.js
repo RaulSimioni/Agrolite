@@ -3,6 +3,10 @@ document.addEventListener('DOMContentLoaded', function () {
         event.preventDefault();
 
         var formData = new FormData(this);
+        var modeloSelecionado = document.querySelector('#modelo').value;
+        console.log(modeloSelecionado);
+        formData.append('modelo', modeloSelecionado);
+
         fetch(this.action, {
             method: "POST",
             body: formData
@@ -14,9 +18,9 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+
 document.addEventListener('DOMContentLoaded', function () {
     const submitButton = document.getElementById('botao');
-    const botaoVoltar = document.getElementById('botao_voltar')
     const input1 = document.getElementById('N');
     const input2 = document.getElementById('P');
     const input3 = document.getElementById('K');
@@ -25,27 +29,27 @@ document.addEventListener('DOMContentLoaded', function () {
     const input6 = document.getElementById('Ph');
     const input7 = document.getElementById('Chuva');
     const customPopup = document.getElementById('customPopup');
-    const closePopupButton = document.getElementById('closePopup')
+    const BotaoMenu = document.getElementById('BotaoMenu');
 
-    input1.addEventListener('input', function() {
+    input1.addEventListener('input', function () {
         this.value = this.value.replace(/\D/g, '');
     });
-    input2.addEventListener('input', function() {
+    input2.addEventListener('input', function () {
         this.value = this.value.replace(/\D/g, '');
     });
-    input3.addEventListener('input', function() {
+    input3.addEventListener('input', function () {
         this.value = this.value.replace(/\D/g, '');
     });
-    input4.addEventListener('input', function() {
+    input4.addEventListener('input', function () {
         this.value = this.value.replace(/\D/g, '');
     });
-    input5.addEventListener('input', function() {
+    input5.addEventListener('input', function () {
         this.value = this.value.replace(/\D/g, '');
     });
-    input6.addEventListener('input', function() {
+    input6.addEventListener('input', function () {
         this.value = this.value.replace(/\D/g, '');
     });
-    input7.addEventListener('input', function() {
+    input7.addEventListener('input', function () {
         this.value = this.value.replace(/\D/g, '');
     });
 
@@ -61,11 +65,8 @@ document.addEventListener('DOMContentLoaded', function () {
             input6.style.display = 'none';
             input7.style.display = 'none';
             submitButton.style.display = 'none';
-            botaoVoltar.style.display = 'block';
+            BotaoMenu.style.display = 'none';
         }
     });
 
-    closePopupButton.addEventListener('click', function () {
-        customPopup.style.display = 'none';
-    });
 });

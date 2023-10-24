@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="{% static 'js/script.js' %}"></script>
     <title>Document</title>
 </head>
@@ -55,9 +56,31 @@
             {% endif %}
         </div>
     </nav>
+
     <div class="Resultado">
         <h1 id="resultado"></h1>
     </div>
+
+    <div class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Modal title</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body Resultado">
+              <h1 id="resultado"></h1>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary">Save changes</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    
 
     <form action="{% url 'recomendacao' %}" method="POST">
         <div class="mx-auto text-center">
@@ -87,16 +110,67 @@
             <div class="text-center">
                 {% csrf_token %}
                 {{ form.as_p }}
-                <button class="button_enviar" id="botao" type="submit">Enviar</button>
+                <button class="btn btn-primary fixed-bottom button-enviar" id="botao" type="submit">Enviar</button>
+                <a class="btn btn-primary mt-2" data-bs-toggle="modal" href="#exampleModalToggle" id="BotaoMenu" role="button">Menu Avançado</a>
             </div>
         </div>
     </form>
-    
 
-    <div id="customPopup" class="popup">
-        <p class="popup-text"><b>Preencha todos os campos corretamente antes de enviar.</b></p>
-        <button onclick="" class="close" id="closePopup">Fechar</button>
+  <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalToggleLabel"><b class="text-danger mx-auto">ATENÇÃO !</b></h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-center">
+          <b class= "mx-auto">O Menu avançado é recomendado apenas para Usuarios Que Possuem conheciment com Machine Learning</b>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-danger mx-auto" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">Sei oque estou fazendo</button>
+        </div>
+      </div>
     </div>
+  </div>
+  <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5 text-center" id="exampleModalToggleLabel2">Menu Avançado</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="modal-body">
+                <form id="advanced-settings-form" action="{% url 'Menu_avancado' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label class="mx-auto mb-2" for="random_state">Random State:</label>
+                        <input type="text" class="form-control mb-2" id="random_state" name="random_state" value="42" placeholder="Random State">
+                    </div>
+                    <div class="form-group">
+                        <label class="mx-auto mb-2 text-center" for="test_size">Quantidade de avaliação(test size):</label>
+                        <input type="text" class="form-control mb-2" id="test_size" name="test_size" value="0.2" placeholder="Test Size">
+                    </div>
+                    <div>
+                        <label class="mx-auto mb-2 text-center" for="modelo">Trocar Modelo</label>
+                        <select class="form-select" aria-label="Default select example" id="modelo" name="modelo">
+                            <option value="DecisionTree">DecisionTreeClassifier</option>
+                            <option value="GaussianNB">GaussianNB</option>
+                            <option value="SVC">SVC</option>
+                            <option value="LogisticRegression">LogisticRegression</option>
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary mx-auto" value="Menu_avancado" id="apply-settings-btn">Aplicar</button>
+                    </div>
+                </form>
+             </div>
+        </div>
+      </div>
+    </div>
+  </div>
+      
+
 
 </body>
 </html>

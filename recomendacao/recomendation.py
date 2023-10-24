@@ -6,6 +6,9 @@ from sklearn.metrics import classification_report
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.metrics import accuracy_score
 from sklearn.tree import DecisionTreeClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.naive_bayes import GaussianNB
+from sklearn.svm import SVC
 
 mapeamento = {
         0:  'Maçã ',
@@ -13,7 +16,7 @@ mapeamento = {
         2:  'Vigna mungo',
         3:  'Grão-de-bico',
         4:  'Coco ',
-        5:  'Café ☕',
+        5:  'Café',
         6:  'Algodão',
         7:  'Uva ',
         8:  'Juta ',
@@ -43,10 +46,10 @@ def Encoder_Y(dataset):
     dataset['label'] = encoded_Y
     return dataset
 
-def dividir_conjunto_de_dados(dataset):
+def dividir_conjunto_de_dados(dataset, test_size=0.2, random_state=42):
     x = dataset.iloc[:, :-1]
     y = dataset['label']
-    x_train, x_validation, y_train, y_validation = train_test_split(x, y, test_size=0.2, random_state=42)
+    x_train, x_validation, y_train, y_validation = train_test_split(x, y, test_size=test_size, random_state=random_state)
     return x_train, x_validation, y_train, y_validation
 
 def Normalizar_dados(x_train, x_validation):
@@ -55,18 +58,18 @@ def Normalizar_dados(x_train, x_validation):
     x_validation_scaled = scaler.transform(x_validation)
     return x_train_scaled, x_validation_scaled
 
-def Treinar_DecisionTree(x_train, y_train):
-    model = DecisionTreeClassifier()
-    model.fit(x_train, y_train)
+def Treinar_Modelo(x_train, y_train, modelo):
+    model = modelo.fit(x_train, y_train)
     return model
 
 def Avaliar_DecisionTree(model ,x_validation, y_validation):
     predictions = model.predict(x_validation)
     accuracy = accuracy_score(y_validation, predictions)
     report = classification_report(y_validation, predictions)
+    print(accuracy, report)
     return accuracy, report
 
-def Recomendar(dados_usuario):
+def Recomendar(dados_usuario, model):
     scaler = StandardScaler()
     data_frame_dados = pd.DataFrame([dados_usuario])
 
@@ -82,7 +85,7 @@ def Recomendar(dados_usuario):
 
     x_train_scaled, x_validation_scaled = Normalizar_dados(x_train, x_validation)
 
-    Treino_Modelo = Treinar_DecisionTree(x_train_scaled, y_train)
+    Treino_Modelo = Treinar_Modelo(x_train_scaled, y_train, model)
 
     data_frame_dados.columns = x_train.columns
     scaler.fit(x_train)
@@ -92,11 +95,7 @@ def Recomendar(dados_usuario):
     
     return resultado_recomendacao
 
-def relatorio():
-    Recomendar()
-    print("")
-    print("                     Precisão:",accuracy, '\n')
-    print(report)
+
 
 if __name__ == '__main__':
 
@@ -106,6 +105,7 @@ if __name__ == '__main__':
     base_dir = os.path.dirname(os.path.abspath(__file__))
     dataset_path = os.path.join(base_dir, file_path)
     dataset = Carregar_Dataset(dataset_path)
+    model = DecisionTreeClassifier()
 
     #print(dataset)
     #input('')
@@ -119,19 +119,21 @@ if __name__ == '__main__':
     #y_train - Basicamente é o 'label' o resultado da recomendacão e o y_train que ira dizer qual planta o usuario deve plantar
     #x_validation - É um template que servirá para validar se o treinamento dos dados x_train estao corretos
     # y_validation - É a template para validar o dado 'label' 
-    x_train, x_validation, y_train, y_validation = dividir_conjunto_de_dados(dataset)
+    x_train, x_validation, y_train, y_validation = dividir_conjunto_de_dados(dataset_encoded)
 
     #Pre processamento usando a normalizacao de dados
     x_train_scaled, x_validation_scaled = Normalizar_dados(x_train, x_validation)
 
     #Aqui estou dando os valores para o modelo da machine learning, note que estou usando a normalzação no x
-    Treino_Modelo = Treinar_DecisionTree(x_train_scaled, y_train)
+    Treino_Modelo = Treinar_Modelo(x_train, y_train, model)
+
+    Avaliar_DecisionTree(Treino_Modelo, x_validation, y_validation)
 
     #print(dataset_encoded.head(30))
     #input('')
 
     #Aqui estou mostrando a prcisão do meu modelo e tambem exibindo um relatorio de treinamento de cada 'label'
-    accuracy, report = Avaliar_DecisionTree(Treino_Modelo, x_validation_scaled, y_validation)
+
 
     #print('\n', "            Precisao DecisionTree: ", accuracy, '\n')
     #print("                             Relatorio", '\n')

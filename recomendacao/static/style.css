@@ -370,10 +370,28 @@ input[type="text"]:focus {
 }
 
 
+#meuBotao:hover {
+    background-color: #1cb39e; /* A cor que você deseja quando o cursor estiver sobre o botão */
+    color: #fff; /* Cor do texto no botão quando o cursor estiver sobre ele */
+}
 
+.button-aplicar{
+    margin-top: 20px;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
+.magrin-top{
+    margin-top: 50px;
+}
 
-.button_enviar {
+.button-enviar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
     width: 300px;
 }
 

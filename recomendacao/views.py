@@ -10,6 +10,11 @@ from .recomendation import dividir_conjunto_de_dados
 from .recomendation import Carregar_Dataset
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
+from sklearn.linear_model import LogisticRegression
+from sklearn.naive_bayes import GaussianNB
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.svm import SVC
 import os
 from .recomendation import *
 
@@ -69,7 +74,6 @@ def logout_user(request):
     return redirect('index')
 
 def Menu_avancado(request):
-    global train_model
     if request.method == 'POST':
         random_state = int(request.POST.get('random_state', 42))  # Valor padrão 42 se não for fornecido
         test_size = float(request.POST.get('test_size', 0.2))  # Valor padrão 0.2 se não for fornecido
@@ -84,17 +88,21 @@ def Menu_avancado(request):
         x_train, x_validation, y_train, y_validation = dividir_conjunto_de_dados(dataset, test_size=test_size, random_state=random_state)
 
         if modelo_selecionado == 'DecisionTree':
-            modelo = DecisionTreeClassifier()
+            request.session['train_model'] = '1'
         elif modelo_selecionado == 'GaussianNB':
-            modelo = GaussianNB()
+            request.session['train_model'] = '2'
         elif modelo_selecionado == 'SVC':
-            modelo = SVC()
+            request.session['train_model'] = '3'
         elif modelo_selecionado == 'LogisticRegression':
-            modelo = LogisticRegression()
-        else:
-            return JsonResponse({'error': 'Modelo desconhecido'}, status=400)
+            request.session['train_model'] = '4'
+        elif modelo_selecionado == 'LDA':
+            request.session['train_model'] = '5'
+        elif modelo_selecionado == 'RF':
+            request.session['train_model'] = '6'
+        elif modelo_selecionado == None:
+            request.session['train_model'] = None
+
             
-        train_model = modelo
 
 
         return render(request,'recomendacao.html', {'recomendacao': recomendacao})
@@ -103,19 +111,31 @@ def Menu_avancado(request):
 
 @csrf_exempt
 def recomendacao(request):
-    global train_model
+    train_model = request.session.get('train_model')
+    DecisionTree = DecisionTreeClassifier()
+    Svc = SVC()
+    Gaussian = GaussianNB()
+    LR = LogisticRegression()
+    LDA = LinearDiscriminantAnalysis()
+    RandomForest = RandomForestClassifier()
     if request.method == 'POST':
-        if train_model is None:
-            return JsonResponse({'error': 'Modelo não treinado'}, status=400)
-
-
-
-
         form = EntradaDadosForm(request.POST)
         if form.is_valid():
             dados_usuario = form.cleaned_data
-        
-            recomendacao = Recomendar(dados_usuario, train_model)
+            if train_model == '1':
+                recomendacao = Recomendar(dados_usuario, DecisionTree)
+            if train_model == '2':
+                recomendacao = Recomendar(dados_usuario, Gaussian)
+            if train_model == '3':
+                recomendacao = Recomendar(dados_usuario, Svc)
+            if  train_model == '4':
+                recomendacao = Recomendar(dados_usuario, LR)
+            if  train_model == '5':
+                recomendacao = Recomendar(dados_usuario, LDA)
+            if train_model == '6':
+                recomendacao = Recomendar(dados_usuario, RandomForest)
+            if train_model == None:
+                recomendacao = Recomendar(dados_usuario, DecisionTree)
             # Crie uma instância do modelo Historico e salve os dados
             historico = Historico(
                 usuario=request.user,  # Substitua isso pelo usuário real (se disponível)

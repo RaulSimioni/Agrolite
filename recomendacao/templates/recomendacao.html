@@ -3,120 +3,134 @@
 <html class="corpo" lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="{% static 'js/script.js' %}"></script>
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="{% static 'js/script.js' %}"></script>
+  <title>Document</title>
 </head>
 
 <body class="corpo">
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-4">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">AGROLITE</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-4">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">AGROLITE</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a href="{% url 'index' %}" class="nav-link mx-2" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link mx-2" href="#">Oque é Agrolite?</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{% url 'recomendacao' %}" class="nav-link mx-2" href="#">Recomendar</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a href="{% url 'historico' %}" class="nav-link mx-2" href="#">Historico</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div>
-            {% if user.is_authenticated %}
-                <ul class="navbar-nav">
-                    <li class="nav-item mx-4">
-                        <a href="{% url 'logout_user' %}" class="nav-link btn btn-danger btn-block mx-4" href="#">LOGOUT</a>
-                    </li>
-                </ul>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a href="{% url 'index' %}" class="nav-link mx-2" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link mx-2" href="#">Oque é Agrolite?</a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'recomendacao' %}" class="nav-link mx-2" href="#">Recomendar</a>
+          </li>
+          <li class="nav-item dropdown">
+            {% if not user.is.authenticated %}
+              <a href="{% url 'login' %}" class="nav-link mx-2" href="#">Historico</a>
             {% else %}
-                <ul class="navbar-nav">
-                    <li class="nav-item mx-4">
-                        <a href="{% url 'login' %}" class="nav-link btn btn-success btn-block mx-4" href="#">Login</a>
-                    </li>
-                </ul>
+              <a href="{% url 'historico' %}" class="nav-link mx-2" href="#">Historico</a>
             {% endif %}
-        </div>
-    </nav>
-
-    <div class="Resultado">
-        <h1 id="resultado"></h1>
+          </li>
+        </ul>
+      </div>
     </div>
+    <div>
+      {% if user.is_authenticated %}
+      <ul class="navbar-nav">
+        <li class="nav-item mx-4">
+          <a href="{% url 'logout_user' %}" class="nav-link btn btn-danger btn-block mx-4" href="#">LOGOUT</a>
+        </li>
+      </ul>
+      {% else %}
+      <ul class="navbar-nav">
+        <li class="nav-item mx-4">
+          <a href="{% url 'login' %}" class="nav-link btn btn-success btn-block mx-4" href="#">Login</a>
+        </li>
+      </ul>
+      {% endif %}
+    </div>
+  </nav>
 
-    <div class="modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Modal title</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body Resultado">
-              <h1 id="resultado"></h1>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-primary">Save changes</button>
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-          </div>
+  <div class="Resultado">
+    <h1 id="resultado"></h1>
+  </div>
+
+  <div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body Resultado">
+          <h1 id="resultado"></h1>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </div>
       </div>
-    
+    </div>
+  </div>
 
-    <form action="{% url 'recomendacao' %}" method="POST">
-        <div class="mx-auto text-center">
-            <div class="d-flex justify-content-center">
-                <div class="col">
-                    <input class="form-control button-form mx-auto" maxlength="3" type="text" name="N" id="N" placeholder="Nitrogênio">
-                </div>
-                <div class="col">
-                    <input class="form-control button-form mx-auto" maxlength="3" type="text" name="P" id="P" placeholder="Fósforo">
-                </div>
-                <div class="col">
-                    <input class="form-control button-form mx-auto" maxlength="3" type="text" name="K" id="K" placeholder="Potássio">
-                </div>
-                <div class="col">
-                    <input class="form-control button-form mx-auto" maxlength="2" type="text" name="temperatura" id="Temperatura" placeholder="Temperatura">
-                </div>
-                <div class="col">
-                    <input class="form-control button-form mx-auto" maxlength="2" type="text" name="umidade" id="Umidade" placeholder="Umidade">
-                </div>
-                <div class="col">
-                    <input class="form-control button-form mx-auto" maxlength="1" type="text" name="ph" id="Ph" placeholder="Ph">
-                </div>
-                <div class="col">
-                    <input class="form-control button-form mx-auto" maxlength="3" type="text" name="chuva" id="Chuva" placeholder="Chuva">
-                </div>
-            </div>
-            <div class="text-center">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button class="btn btn-primary fixed-bottom button-enviar" id="botao" type="submit">Enviar</button>
-                <a class="btn btn-primary mt-2" data-bs-toggle="modal" href="#exampleModalToggle" id="BotaoMenu" role="button">Menu Avançado</a>
-            </div>
+
+  <form action="{% url 'recomendacao' %}" method="POST">
+    <div class="mx-auto text-center">
+      <div class="d-flex justify-content-center">
+        <div class="col">
+          <input class="form-control button-form mx-auto" maxlength="3" type="text" name="N" id="N"
+            placeholder="Nitrogênio">
         </div>
-    </form>
+        <div class="col">
+          <input class="form-control button-form mx-auto" maxlength="3" type="text" name="P" id="P"
+            placeholder="Fósforo">
+        </div>
+        <div class="col">
+          <input class="form-control button-form mx-auto" maxlength="3" type="text" name="K" id="K"
+            placeholder="Potássio">
+        </div>
+        <div class="col">
+          <input class="form-control button-form mx-auto" maxlength="2" type="text" name="temperatura" id="Temperatura"
+            placeholder="Temperatura">
+        </div>
+        <div class="col">
+          <input class="form-control button-form mx-auto" maxlength="2" type="text" name="umidade" id="Umidade"
+            placeholder="Umidade">
+        </div>
+        <div class="col">
+          <input class="form-control button-form mx-auto" maxlength="1" type="text" name="ph" id="Ph" placeholder="Ph">
+        </div>
+        <div class="col">
+          <input class="form-control button-form mx-auto" maxlength="3" type="text" name="chuva" id="Chuva"
+            placeholder="Chuva">
+        </div>
+      </div>
+      <div class="text-center">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <a class="btn btn-primary mt-2" data-bs-toggle="modal" href="#exampleModalToggle" id="BotaoMenu"
+          role="button">Menu Avançado</a>
+      </div>
+    </div>
+    <div>
+      <button class="btn btn-primary button-enviar mx-auto" id="botao" type="submit">Enviar</button>
+    </div>
+  </form>
 
-  <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+  <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
+    tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
@@ -124,53 +138,65 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body text-center">
-          <b class= "mx-auto">O Menu avançado é recomendado apenas para Usuarios Que Possuem conheciment com Machine Learning</b>
+          <b class="mx-auto mb-2">O Menu avançado é recomendado apenas para Usuarios Que Possuem conhecimento com
+            Machine Learning</b>
+          <hr>
+          <b class="mx-auto">Se você <b class="text-danger">NÃO</b> tem experiência em Machine Learning, esteja ciente
+            de que mexer nessas configurações pode ter um grande impacto nos resultados, tornando as recomendações
+            incorretas.</b>
         </div>
         <div class="modal-footer">
-          <button class="btn btn-danger mx-auto" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">Sei oque estou fazendo</button>
+          <button class="btn btn-danger mx-auto meuBotao" data-bs-target="#exampleModalToggle2"
+            data-bs-toggle="modal">Sei oque estou fazendo</button>
         </div>
       </div>
     </div>
   </div>
-  <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+  <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2"
+    tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-            <h1 class="modal-title fs-5 text-center" id="exampleModalToggleLabel2">Menu Avançado</h1>
+          <h1 class="modal-title fs-5 text-center text-primary" id="exampleModalToggleLabel2">Menu Avançado</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <div class="modal-body">
-                <form id="advanced-settings-form" action="{% url 'Menu_avancado' %}" method="POST">
-                    {% csrf_token %}
-                    <div class="form-group">
-                        <label class="mx-auto mb-2" for="random_state">Random State:</label>
-                        <input type="text" class="form-control mb-2" id="random_state" name="random_state" value="42" placeholder="Random State">
-                    </div>
-                    <div class="form-group">
-                        <label class="mx-auto mb-2 text-center" for="test_size">Quantidade de avaliação(test size):</label>
-                        <input type="text" class="form-control mb-2" id="test_size" name="test_size" value="0.2" placeholder="Test Size">
-                    </div>
-                    <div>
-                        <label class="mx-auto mb-2 text-center" for="modelo">Trocar Modelo</label>
-                        <select class="form-select" aria-label="Default select example" id="modelo" name="modelo">
-                            <option value="DecisionTree">DecisionTreeClassifier</option>
-                            <option value="GaussianNB">GaussianNB</option>
-                            <option value="SVC">SVC</option>
-                            <option value="LogisticRegression">LogisticRegression</option>
-                        </select>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary mx-auto" value="Menu_avancado" id="apply-settings-btn">Aplicar</button>
-                    </div>
-                </form>
-             </div>
+          <div class="modal-body">
+            <form id="advanced-settings-form" action="{% url 'Menu_avancado' %}" method="POST">
+              {% csrf_token %}
+              <div class="form-group">
+                <label class="mx-auto mb-2" for="random_state"><b>Estado de aleatoriedade (Random State)</b></label>
+                <input type="text" class="form-control mb-2" id="random_state" name="random_state" value="42"
+                  placeholder="Random State">
+              </div>
+              <div class="form-group">
+                <label class="mx-auto mb-2 text-center" for="test_size"><b>Quantidade de avaliação (test
+                    size):</b></label>
+                <input type="text" class="form-control mb-2" id="test_size" name="test_size" value="0.2"
+                  placeholder="Test Size">
+              </div>
+              <div>
+                <label class="mx-auto mb-2 text-center" for="modelo"><b>Trocar Modelo</b></label>
+                <select class="form-select" aria-label="Default select example" id="modelo" name="modelo">
+                  <option value="DecisionTree">DecisionTreeClassifier (Padrão)</option>
+                  <option value="GaussianNB">GaussianNB</option>
+                  <option value="SVC">SVC</option>
+                  <option value="LogisticRegression">LogisticRegression</option>
+                  <option value="LDA">LinearDiscriminantAnalysis</option>
+                  <option value="RF">Random Forest Classifier</option>
+                </select>
+              <div>
+                <button type="submit" class="btn btn-primary mx-auto button-aplicar" value="Menu_avancado"id="apply-settings-btn">Aplicar</button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>
   </div>
-      
+
 
 
 </body>
+
 </html>

@@ -62,11 +62,12 @@ def Treinar_Modelo(x_train, y_train, modelo):
     model = modelo.fit(x_train, y_train)
     return model
 
-def Avaliar_DecisionTree(model ,x_validation, y_validation):
+def Avaliar_Modelo(model ,x_validation, y_validation):
     predictions = model.predict(x_validation)
     accuracy = accuracy_score(y_validation, predictions)
     report = classification_report(y_validation, predictions)
-    print(accuracy, report)
+    print(accuracy)
+    print(report)
     return accuracy, report
 
 def Recomendar(dados_usuario, model):
@@ -85,13 +86,16 @@ def Recomendar(dados_usuario, model):
 
     x_train_scaled, x_validation_scaled = Normalizar_dados(x_train, x_validation)
 
-    Treino_Modelo = Treinar_Modelo(x_train_scaled, y_train, model)
+    Treino_Modelo = Treinar_Modelo(x_train, y_train, model)
 
     data_frame_dados.columns = x_train.columns
     scaler.fit(x_train)
     dados_scaled = scaler.transform(data_frame_dados)
     recomendacao = Treino_Modelo.predict(dados_scaled)
     resultado_recomendacao = mapeamento[recomendacao[0]]
+
+    Avaliar_Modelo(Treino_Modelo,x_validation, y_validation)
+
     
     return resultado_recomendacao
 
@@ -127,7 +131,7 @@ if __name__ == '__main__':
     #Aqui estou dando os valores para o modelo da machine learning, note que estou usando a normalzação no x
     Treino_Modelo = Treinar_Modelo(x_train, y_train, model)
 
-    Avaliar_DecisionTree(Treino_Modelo, x_validation, y_validation)
+    Avaliar_Modelo(Treino_Modelo, x_validation, y_validation)
 
     #print(dataset_encoded.head(30))
     #input('')

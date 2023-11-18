@@ -35,6 +35,7 @@ mapeamento = {
         21: 'Melancia '
     }
 
+
 def Carregar_Dataset(path):
     dataset = pd.read_csv(path)
     dataset.head(30)
@@ -68,7 +69,6 @@ def Avaliar_Modelo(model ,x_validation, y_validation):
     report = classification_report(y_validation, predictions)
     print(accuracy)
     print(report)
-    return accuracy, report
 
 def Recomendar(dados_usuario, model):
     scaler = StandardScaler()
@@ -86,7 +86,7 @@ def Recomendar(dados_usuario, model):
 
     x_train_scaled, x_validation_scaled = Normalizar_dados(x_train, x_validation)
 
-    Treino_Modelo = Treinar_Modelo(x_train, y_train, model)
+    Treino_Modelo = Treinar_Modelo(x_train_scaled, y_train, model)
 
     data_frame_dados.columns = x_train.columns
     scaler.fit(x_train)

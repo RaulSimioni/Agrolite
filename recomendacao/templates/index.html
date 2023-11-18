@@ -31,7 +31,7 @@
                         <a href="{% url 'recomendacao' %}" class="nav-link mx-2" href="#">Recomendar</a>
                     </li>
                     <li class="nav-item dropdown">
-                        {% if not user.is.authenticated %}
+                        {% if not user.is_authenticated %}
                             <a href="{% url 'login' %}" class="nav-link mx-2" href="#">Historico</a>
                         {% else %}
                             <a href="{% url 'historico' %}" class="nav-link mx-2" href="#">Historico</a>

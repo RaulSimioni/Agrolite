@@ -30,15 +30,10 @@
                             <h1 class="mb-2">AGROLITE</h1>
                         </div>
                         <div class="card-body py-5 px-md-5">
-                            <div>
-                                {% if messages %}
-                                    <ul class="alert alert-danger" style="margin-bottom: 50px;">
-                                        {% for message in messages %}
-                                            <li {% if message.tags %} class="{{ message.tags }} "{% endif %}>{{ message }}</li>
-                                        {% endfor %}
-                                    </ul>
-                                {% endif %}
-                            </div>
+                        {% for field, error in form.errors.items %}
+                            <div class="alert alert-danger">{{ error }}</div>
+                        {% endfor %}
+                        </div>
                             <form action="" method="POST">
                                 {% csrf_token %}
 

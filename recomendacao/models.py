@@ -3,7 +3,7 @@ from django.utils import timezone
 from django.db import models
 
 
-class Historico(models.Model):
+class  Historico(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     data_entrada = models.DateTimeField(default=timezone.now)
     n = models.FloatField()

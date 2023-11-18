@@ -68,7 +68,7 @@ def login(request):
             return redirect('login.html')
         
     return render(request, 'login.html')
-    
+
 def logout_user(request):
     logout(request)
     return redirect('index')
@@ -78,7 +78,6 @@ def Menu_avancado(request):
         random_state = int(request.POST.get('random_state', 42))  # Valor padrão 42 se não for fornecido
         test_size = float(request.POST.get('test_size', 0.2))  # Valor padrão 0.2 se não for fornecido
         modelo_selecionado = request.POST.get('modelo')
-
         file_path = 'content//crop_recommendation.csv'
         base_dir = os.path.dirname(os.path.abspath(__file__))
         dataset_path = os.path.join(base_dir, file_path)
@@ -137,6 +136,7 @@ def recomendacao(request):
             if train_model == None:
                 recomendacao = Recomendar(dados_usuario, DecisionTree)
             # Crie uma instância do modelo Historico e salve os dados
+            
             historico = Historico(
                 usuario=request.user,  # Substitua isso pelo usuário real (se disponível)
                 n=dados_usuario['N'],

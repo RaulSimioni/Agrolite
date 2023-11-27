@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="{% static 'fa/css/all.min.css' %}">
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <title>Agrolite - Login</title>
-
 </head>
 
 <body class="bg-dark">
@@ -26,30 +25,31 @@
                             class="w-100 rounded-t-5 rounded-tr-lg-0 rounded-bl-lg-5 rounded-image img-fluid rounded m-4" />
                     </div>
                     <div class="col-lg-8">
-                        <div class="center-content h-100 d-flex flex-column justify-content-center mb-4"> <!-- Apply the centering class here -->
+                        <div class="center-content h-100 d-flex flex-column justify-content-center mb-4">
                             <h1 class="mb-2">AGROLITE</h1>
                         </div>
                         <div class="card-body py-5 px-md-5">
-                        {% for field, error in form.errors.items %}
-                            <div class="alert alert-danger">{{ error }}</div>
-                        {% endfor %}
-                        </div>
+                            <div>
+                                {% for field, error in form.errors.items %}
+                                    <div class="alert alert-danger">{{ error }}</div>
+                                {% endfor %}
+                            </div>
                             <form action="" method="POST">
                                 {% csrf_token %}
-
                                 <div class="form-group">
                                     <label for="formUsuario"><b>Nome De Usuario</b></label>
                                     <div>
-                                        {% render_field form.username type="text" class="form-control mx-auto mb-4" id="exampleInputUsername" placeholder="Nome De Usuario" style="width: 450px" %}
+                                        {% render_field form.username type="text" class="form-control mx-auto mb-4"id="exampleInputUsername" placeholder="Nome De Usuario" style="width: 450px" %}
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="formPassword"><b>Senha</b></label>
                                     <div>
-                                        {% render_field form.password type="password" class="form-control mx-auto mb-4" id="exampleInputUsername" placeholder="Senha" style="width: 450px" %}
+                                        {% render_field form.password type="password" class="form-control mx-auto mb-4"id="exampleInputUsername" placeholder="Senha" style="width: 450px" %}
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary mx-auto btn-block mb-4 mt-4" style="width: 150px;">Entrar</button>
+                                <button type="submit" class="btn btn-primary mx-auto btn-block mb-4 mt-4"
+                                    style="width: 150px;">Entrar</button>
                                 <p>Não tem uma conta? <a href="{% url 'register' %}">Registre-se agora</a></p>
                             </form>
                         </div>

@@ -10,6 +10,7 @@ from .recomendation import dividir_conjunto_de_dados
 from .recomendation import Carregar_Dataset
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
 from sklearn.linear_model import LogisticRegression
 from sklearn.naive_bayes import GaussianNB
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
@@ -46,7 +47,7 @@ def register(request):
     return render(request, 'register.html', context)
 
 def Historico_view(request):
-    historico_entries = Historico.objects.filter(usuario=request.user)
+    historico_entries = Historico.objects.filter(usuario=request.user).order_by('-data_entrada')
     return render(request, 'historico.html', {'historico_entries': historico_entries})
 
 def deletar_historico(request, historico_id):
@@ -136,9 +137,11 @@ def recomendacao(request):
             if train_model == None:
                 recomendacao = Recomendar(dados_usuario, DecisionTree)
             # Crie uma instância do modelo Historico e salve os dados
-            
-            historico = Historico(
-                usuario=request.user,  # Substitua isso pelo usuário real (se disponível)
+
+
+            if request.user.is_authenticated:
+                historico = Historico(
+                usuario=request.user,
                 n=dados_usuario['N'],
                 p=dados_usuario['P'],
                 k=dados_usuario['K'],
@@ -147,8 +150,8 @@ def recomendacao(request):
                 ph=dados_usuario['ph'],
                 chuva=dados_usuario['chuva'],
                 resposta_ia=recomendacao
-            )
-            historico.save()
+                )
+                historico.save()
 
             
             return JsonResponse({'recomendacao': recomendacao})

@@ -36,9 +36,9 @@
           </li>
           <li class="nav-item dropdown">
             {% if not user.is_authenticated %}
-              <a href="{% url 'login' %}" class="nav-link mx-2" href="#">Historico</a>
+            <a href="{% url 'login' %}" class="nav-link mx-2" href="#">Historico</a>
             {% else %}
-              <a href="{% url 'historico' %}" class="nav-link mx-2" href="#">Historico</a>
+            <a href="{% url 'historico' %}" class="nav-link mx-2" href="#">Historico</a>
             {% endif %}
           </li>
         </ul>
@@ -61,34 +61,100 @@
     </div>
   </nav>
 
-  <div class="Resultado">
-    <h1 id="resultado"></h1>
-  </div>
 
-  <div class="modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
+  <div class="modal fade" id="resultadoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Modal title</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+        <div class="modal-header mx-auto">
+          <h5 class="modal-title" id="exampleModalLongTitle">Resultado da Recomendação</h5>
         </div>
-        <div class="modal-body Resultado">
-          <h1 id="resultado"></h1>
+        <div class="modal-body mx-auto">
+          <div class="mx-auto">
+            <h2 class="" id="resultadoTexto"></h2>
+          </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary">Save changes</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" id="apply-settings-btn" class="btn btn-secondary"
+            data-bs-dismiss="modal">Fechar</button>
         </div>
       </div>
     </div>
   </div>
 
+  <div class="modal fade" id="avisoModal" tabindex="-1" role="dialog" aria-labelledby="avisoModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title text-danger" id="avisoModalLabel">Aviso</h3>
+      </div>
+      <div class="modal-body">
+        <b>Por favor, preencha todos os campos do formulário.</b>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="apply-settings-btn" class="btn btn-secondary"
+        data-bs-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
-  <form action="{% url 'recomendacao' %}" method="POST">
-    <div class="mx-auto text-center">
-      <div class="d-flex justify-content-center">
+
+
+  <div class="container d-flex">
+    <div class="card mx-auto cardrecomendacao">
+      <div class="card-body">
+        <h4 class="card-title text-center"><b>Como usar</b></h4>
+        <p class="card-text">
+          Aqui é aonde voce pode receber a sua recomendacao do seu solo! logo abaixo preenccha com os dados das
+          caracteristicas de seu solo, após preencher todas as caixas aperte o botão enviar para receber a melhor
+          recomendação do seu solo
+        </p>
+      </div>
+    </div>
+    <div class="card mx-auto cardrecomendacao">
+      <div class="card-body">
+        <h4 class="card-title text-center"><b>Menu avançado</b></h4>
+        <p class="card-text">
+          No sistema, oferecemos um menu avançado que proporciona aos usuários a capacidade de ajustar parâmetros e até
+          mesmo trocar o algoritmo de aprendizado de máquina utilizado. Essa funcionalidade é especialmente útil para
+          usuários que têm conhecimentos mais avançados em machine learning e desejam personalizar a experiência de
+          acordo com suas necessidades específicas.
+        </p>
+        <div class="mx-auto">
+          <a class="btn btn-primary mt-2" data-bs-toggle="modal" href="#exampleModalToggle" id="BotaoMenu"
+            role="button">Menu Avançado</a>
+        </div>
+      </div>
+    </div>
+    <div class="card mx-auto cardrecomendacao">
+      <div class="card-body">
+        <h4 class="card-title text-center"><b>Consutar os resultados</b></h4>
+        <p class="card-text">
+          Após receber sua recomendação, você tem a opção de acessar o histórico para visualizar todas as
+          recomendações feitas anteriormente. Este recurso proporciona uma maneira conveniente de revisitar e revisar as
+          sugestões que você recebeu ao longo do tempo.
+        </p>
+        {% if not user.is_authenticated %}
+        <a href="{% url 'login' %}" class="btn btn-primary btncard" href="#">Historico</a>
+        {% else %}
+        <a href="{% url 'historico' %}" class="btn btn-primary btncard" href="#">Historico</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+
+
+
+
+
+  <form id="recomendacaoForm" class="form" action="{% url 'recomendacao' %}" method="POST">
+    {% csrf_token %}
+    <div class="mx-auto text-center mt-2">
+      <div class="d-flex mx-auto">
         <div class="col">
           <input class="form-control button-form mx-auto" maxlength="3" type="text" name="N" id="N"
             placeholder="Nitrogênio">
@@ -110,22 +176,17 @@
             placeholder="Umidade">
         </div>
         <div class="col">
-          <input class="form-control button-form mx-auto" maxlength="1" type="text" name="ph" id="Ph" placeholder="Ph">
+          <input class="form-control button-form mx-auto" maxlength="2" type="text" name="ph" id="Ph" placeholder="Ph">
         </div>
         <div class="col">
           <input class="form-control button-form mx-auto" maxlength="3" type="text" name="chuva" id="Chuva"
-            placeholder="Chuva">
+            placeholder="Índice pluviométrico">
         </div>
       </div>
-      <div class="text-center">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <a class="btn btn-primary mt-2" data-bs-toggle="modal" href="#exampleModalToggle" id="BotaoMenu"
-          role="button">Menu Avançado</a>
+      <div class="mx-auto">
+        <button class="btn btn-primary button-enviar mx-auto mt-2" data-bs-toggle="modal"
+          data-bs-target="#resultadoModal" type="submit">Enviar dados</button>
       </div>
-    </div>
-    <div>
-      <button class="btn btn-primary button-enviar mx-auto" id="botao" type="submit">Enviar</button>
     </div>
   </form>
 
@@ -185,9 +246,10 @@
                   <option value="LDA">LinearDiscriminantAnalysis</option>
                   <option value="RF">Random Forest Classifier</option>
                 </select>
-              <div>
-                <button type="submit" class="btn btn-primary mx-auto button-aplicar" value="Menu_avancado"id="apply-settings-btn">Aplicar</button>
-              </div>
+                <div>
+                  <button type="submit" class="btn btn-primary mx-auto button-aplicar" value="Menu_avancado"
+                    id="apply-settings-btn">Aplicar</button>
+                </div>
             </form>
           </div>
         </div>

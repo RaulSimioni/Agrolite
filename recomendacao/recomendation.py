@@ -11,28 +11,28 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.svm import SVC
 
 mapeamento = {
-        0:  'Maçã ',
-        1:  'Banana ',
+        0:  'Maçã',
+        1:  'Banana',
         2:  'Vigna mungo',
         3:  'Grão-de-bico',
-        4:  'Coco ',
+        4:  'Coco',
         5:  'Café',
         6:  'Algodão',
-        7:  'Uva ',
-        8:  'Juta ',
-        9:  'Feijão Roxo',
+        7:  'Uva',
+        8:  'Juta',
+        9:  'Feijão preto',
         10: 'Lentilha',
-        11: 'Milho ',
-        12: 'Manga ',
-        13: 'Vigna aconitifolia',
+        11: 'Milho',
+        12: 'Manga',
+        13: 'Feijão',
         14: 'Vigna radiata',
-        15: 'Melão ',
-        16: 'Laranja ',
+        15: 'Melão',
+        16: 'Laranja',
         17: 'Mamão',
         18: 'Guandu',
         19: 'Romã',
-        20: 'Arroz ',
-        21: 'Melancia '
+        20: 'Arroz',
+        21: 'Melancia'
     }
 
 
@@ -94,7 +94,7 @@ def Recomendar(dados_usuario, model):
     recomendacao = Treino_Modelo.predict(dados_scaled)
     resultado_recomendacao = mapeamento[recomendacao[0]]
 
-    Avaliar_Modelo(Treino_Modelo,x_validation, y_validation)
+    Avaliar_Modelo(Treino_Modelo,x_validation_scaled, y_validation)
 
     
     return resultado_recomendacao

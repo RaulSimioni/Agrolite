@@ -13,6 +13,18 @@
     background-size: cover;
 }
 
+.form{
+    margin-top: 100px;
+}
+
+.btncard{
+    margin-top: 57px;
+}
+
+.cardrecomendacao{
+    margin-top: 50px;
+}
+
 .centralizar_botao {
     text-align: center;
     display: flex;

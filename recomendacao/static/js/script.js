@@ -1,72 +1,67 @@
 document.addEventListener('DOMContentLoaded', function () {
-    document.querySelector("form").addEventListener("submit", function (event) {
+    const form = document.getElementById("recomendacaoForm");
+
+    form.addEventListener("submit", function (event) {
         event.preventDefault();
 
-        var formData = new FormData(this);
-        var modeloSelecionado = document.querySelector('#modelo').value;
-        console.log(modeloSelecionado);
-        formData.append('modelo', modeloSelecionado);
+        // Verificar se algum campo está em branco
+        if (
+            !isFieldFilled('#N') ||
+            !isFieldFilled('#P') ||
+            !isFieldFilled('#K') ||
+            !isFieldFilled('#Temperatura') ||
+            !isFieldFilled('#Umidade') ||
+            !isFieldFilled('#Ph') ||
+            !isFieldFilled('#Chuva')
+        ) {
+            // Mostrar o modal de aviso se algum campo estiver em branco
+            $('#avisoModal').modal('show');
+            return; // Impede o envio do formulário
+        }
 
-        fetch(this.action, {
-            method: "POST",
-            body: formData
-        })
+        const formData = new FormData(this);
+        const modeloSelecionado = document.querySelector('#modelo').value;
+
+        // Verificar se o modeloSelecionado é válido antes de enviar a solicitação
+        if (modeloSelecionado) {
+            formData.append('modelo', modeloSelecionado);
+
+            fetch(this.action, {
+                method: "POST",
+                body: formData
+            })
             .then(response => response.json())
             .then(data => {
-                document.getElementById("resultado").textContent = data.recomendacao;
-            });
-    });
-});
+                // Exibir o modal de resultado apenas se não houve nenhum erro
+                if (!data.erro) {
+                    // Atualizar o conteúdo do modal com o resultado
+                    document.getElementById("resultadoTexto").textContent = data.recomendacao;
 
-
-document.addEventListener('DOMContentLoaded', function () {
-    const submitButton = document.getElementById('botao');
-    const input1 = document.getElementById('N');
-    const input2 = document.getElementById('P');
-    const input3 = document.getElementById('K');
-    const input4 = document.getElementById('Temperatura');
-    const input5 = document.getElementById('Umidade');
-    const input6 = document.getElementById('Ph');
-    const input7 = document.getElementById('Chuva');
-    const customPopup = document.getElementById('customPopup');
-    const BotaoMenu = document.getElementById('BotaoMenu');
-
-    input1.addEventListener('input', function () {
-        this.value = this.value.replace(/\D/g, '');
-    });
-    input2.addEventListener('input', function () {
-        this.value = this.value.replace(/\D/g, '');
-    });
-    input3.addEventListener('input', function () {
-        this.value = this.value.replace(/\D/g, '');
-    });
-    input4.addEventListener('input', function () {
-        this.value = this.value.replace(/\D/g, '');
-    });
-    input5.addEventListener('input', function () {
-        this.value = this.value.replace(/\D/g, '');
-    });
-    input6.addEventListener('input', function () {
-        this.value = this.value.replace(/\D/g, '');
-    });
-    input7.addEventListener('input', function () {
-        this.value = this.value.replace(/\D/g, '');
-    });
-
-    submitButton.addEventListener('click', function () {
-        if (input1.value.trim() === '' || input2.value.trim() === '' || input3.value.trim() === '' || input4.value.trim() === '' || input5.value.trim() === '' || input6.value.trim() === '' || input7.value.trim() === '') {
-            customPopup.style.display = 'block'
+                    // Exibir o modal
+                    $('#resultadoModal').modal('show');
+                } else {
+                    // Se houver um erro, exibir o modal de aviso com a mensagem de erro
+                    $('#avisoModal').find('.modal-body').text(data.erro);
+                    $('#avisoModal').modal('show');
+                }
+            })
+            .catch(error => console.error('Erro ao obter dados:', error));
         } else {
-            input1.style.display = 'none';
-            input2.style.display = 'none';
-            input3.style.display = 'none';
-            input4.style.display = 'none';
-            input5.style.display = 'none';
-            input6.style.display = 'none';
-            input7.style.display = 'none';
-            submitButton.style.display = 'none';
-            BotaoMenu.style.display = 'none';
+            console.error("Modelo não selecionado ou inválido.");
         }
     });
 
+    // Limpar o conteúdo do modal ao fechar
+    $('#avisoModal, #resultadoModal').on('hidden.bs.modal', function () {
+        console.log('Modal sendo exibido.');
+
+        form.reset();
+
+        document.getElementById("resultadoTexto").textContent = '';
+    });
+
+    // Função para verificar se um campo está preenchido
+    function isFieldFilled(selector) {
+        return $.trim($(selector).val());
+    }
 });

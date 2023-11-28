@@ -6,79 +6,91 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <title>AGROLITE</title>
 </head>
 
-<body>
+<body class="corpo">
+
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-4">
-        <div class="container">
+        <div class="container-fluid">
             <a class="navbar-brand" href="#">AGROLITE</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a href="{% url 'index' %}" class="nav-link mx-2" href="#">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link mx-2" href="#">O que é Agrolite?</a>
-                    </li>
-                    <li class="nav-item">
                         <a href="{% url 'recomendacao' %}" class="nav-link mx-2" href="#">Recomendar</a>
                     </li>
                     <li class="nav-item dropdown">
                         {% if not user.is_authenticated %}
-                            <a href="{% url 'login' %}" class="nav-link mx-2" href="#">Historico</a>
+                        <a href="{% url 'login' %}" class="nav-link mx-2" href="#">Historico</a>
                         {% else %}
-                            <a href="{% url 'historico' %}" class="nav-link mx-2" href="#">Historico</a>
+                        <a href="{% url 'historico' %}" class="nav-link mx-2" href="#">Historico</a>
                         {% endif %}
                     </li>
                 </ul>
             </div>
-            <div>
-                {% if user.is_authenticated %}
-                    <ul class="navbar-nav">
-                        <li class="nav-item mx-4">
-                            <a href="{% url 'logout_user' %}" class="nav-link btn btn-danger btn-block mx-4" href="#">LOGOUT</a>
-                        </li>
-                    </ul>
-                {% else %}
-                    <ul class="navbar-nav">
-                        <li class="nav-item mx-4">
-                            <a href="{% url 'login' %}" class="nav-link btn btn-success btn-block mx-4" href="#">Login</a>
-                        </li>
-                    </ul>
-                {% endif %}
-            </div>
+        </div>
+        <div>
+            {% if user.is_authenticated %}
+            <ul class="navbar-nav">
+                <li class="nav-item mx-4">
+                    <a href="{% url 'logout_user' %}" class="nav-link btn btn-danger btn-block mx-4"
+                        href="#"><b>LOGOUT</b></a>
+                </li>
+            </ul>
+            {% else %}
+            <ul class="navbar-nav">
+                <li class="nav-item mx-4">
+                    <a href="{% url 'login' %}" class="nav-link btn btn-success btn-block mx-4"
+                        href="#"><b>Login</b></a>
+                </li>
+            </ul>
+            {% endif %}
         </div>
     </nav>
 
     <div class="container mt-5">
-        <h1 class="text-center"><b>AGROLITE</b></h1>
-    </div>
+        <h1 class="text-center text-light display-3"><b>AGROLITE</b></h1>
 
-    <div class="container mt-4">
-        <div class="card card-custom bg-dark text-white">
-            <div class="card-body mx-auto">
-                <h5 class="card-title">Como Funciona</h5>
-                <p class="card-text">Este é um site que fornece recomendações úteis para agricultores. Aqui estão os passos para começar:</p>
-                <ol>
-                    <li>Registre-se na nossa plataforma.</li>
-                    <li>Realize o login na sua conta.</li>
-                    <li>Explore as recomendações personalizadas para suas culturas.</li>
-                </ol>
-                <p class="card-text">É simples assim! Comece a melhorar sua agricultura hoje.</p>
+        <!-- Seção "Quem Somos" -->
+        <div class="row mt-5">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title text-dark text-center "><b>Oque é Agrolite?</b></h5>
+                        <p class="card-text">Bem-vindo ao Agrolite, a sua solução inovadora para otimização agrícola! O Agrolite é um software avançado desenvolvido para revolucionar a forma como você aborda o cultivo. Nosso software utiliza machine learning, uma forma de inteligência artificial, para fornecer recomendações personalizadas de plantações com base em dados detalhados do solo.
+
+                            Através de um processo de treinamento extenso, nossa máquina de aprendizado analisa uma variedade de fatores, incluindo a composição do solo, nutrientes disponíveis e condições climáticas locais. Isso nos permite oferecer recomendações precisas e adaptadas às necessidades específicas de cada área de plantio.</p>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="container text-center mt-4">
-        <button type="button" class="btn btn-primary button-custom">Começar</button>
-    </div>
+        <div class="row mt-3">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body mx-auto">
+                        <h5 class="card-title text-dark text-center "><b>Recomendação de plantio</b></h5>
+
+                        <p class="card-text">Descubra a principal funcionalidade do Agrolite. Oferecemos recomendações especializadas para maximizar o potencial das suas plantações. Este é o espaço onde você, como usuário, pode receber orientações personalizadas com base em dados avançados do solo. </p>
+                        <p class="text-center"><b>Experimente agora mesmo e receba as melhores recomendacoes para o seu solo</b></p>
+                        <div class="text-center">
+                            <a href="{% url 'recomendacao' %}"><button class="btn btn-primary mx-auto mt-2 w-50">Começar</button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
 
 </body>
 </html>

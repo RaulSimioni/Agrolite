@@ -13,7 +13,7 @@ from sklearn.svm import SVC
 mapeamento = {
         0:  'Maçã',
         1:  'Banana',
-        2:  'Vigna mungo',
+        2:  'Feijão Roxo',
         3:  'Grão-de-bico',
         4:  'Coco',
         5:  'Café',

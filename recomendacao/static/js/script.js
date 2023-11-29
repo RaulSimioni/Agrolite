@@ -1,3 +1,31 @@
+function limitarDecimais(elemento) {
+
+    // Obtém o valor atual da caixa de texto
+    var valor = elemento.value;
+
+    // Verifica se o ponto decimal está presente
+    var pontoDecimalIndex = valor.indexOf('.');
+
+    // Se não houver ponto decimal ou o cursor estiver antes do ponto, redefine o valor para '0.'
+    if (pontoDecimalIndex === -1 || elemento.selectionStart <= pontoDecimalIndex) {
+        elemento.value = '0.';
+    }
+}
+
+function verificarNumero() {
+    // Obter o valor da caixa de texto
+    var valor = document.getElementById("numeroInput").value;
+
+    // Verificar se o valor é um número ou se é zero
+    if (isNaN(valor) || valor === "" || valor == 0) {
+        // Atribuir 42 se não for um número ou se for zero
+        valor = 42;
+    }
+
+    // Exibir o resultado
+    alert("O valor é: " + valor);
+}
+
 document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById("recomendacaoForm");
 
@@ -101,4 +129,5 @@ document.addEventListener('DOMContentLoaded', function () {
         // Remove qualquer não número (exceto '-')
         input.value = input.value.replace(/[^0-9-]/g, '');
     }
+
 });

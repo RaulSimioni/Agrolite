@@ -47,30 +47,30 @@ def Encoder_Y(dataset):
     dataset['label'] = encoded_Y
     return dataset
 
-def dividir_conjunto_de_dados(dataset, test_size=0.2, random_state=42):
+def dividir_conjunto_de_dados(dataset, estado_de_aleatoriedade, tamanho_teste):
     x = dataset.iloc[:, :-1]
     y = dataset['label']
-    x_train, x_validation, y_train, y_validation = train_test_split(x, y, test_size=test_size, random_state=random_state)
-    return x_train, x_validation, y_train, y_validation
+    x_treino, x_validacao, y_treino, y_validacao = train_test_split(x, y, random_state=estado_de_aleatoriedade, test_size=tamanho_teste)
+    return x_treino, x_validacao, y_treino, y_validacao
 
-def Normalizar_dados(x_train, x_validation):
+def Normalizar_dados(x_treino, x_validacao):
     scaler = StandardScaler()
-    x_train_scaled = scaler.fit_transform(x_train)
-    x_validation_scaled = scaler.transform(x_validation)
-    return x_train_scaled, x_validation_scaled
+    x_treino_normalizado = scaler.fit_transform(x_treino)
+    x_validacao_normalizado = scaler.transform(x_validacao)
+    return x_treino_normalizado, x_validacao_normalizado
 
-def Treinar_Modelo(x_train, y_train, modelo):
-    model = modelo.fit(x_train, y_train)
+def Treinar_Modelo(x_treino, y_treino, modelo):
+    model = modelo.fit(x_treino, y_treino)
     return model
 
-def Avaliar_Modelo(model ,x_validation, y_validation):
-    predictions = model.predict(x_validation)
-    accuracy = accuracy_score(y_validation, predictions)
-    report = classification_report(y_validation, predictions)
+def Avaliar_Modelo(model ,x_validacao, y_validacao):
+    predictions = model.predict(x_validacao)
+    accuracy = accuracy_score(y_validacao, predictions)
+    report = classification_report(y_validacao, predictions)
     print(accuracy)
     print(report)
 
-def Recomendar(dados_usuario, model):
+def Recomendar(dados_usuario, model, random_st, test_s):
     scaler = StandardScaler()
     data_frame_dados = pd.DataFrame([dados_usuario])
 
@@ -82,66 +82,23 @@ def Recomendar(dados_usuario, model):
 
     dataset_encoded = Encoder_Y(dataset)
 
-    x_train, x_validation, y_train, y_validation = dividir_conjunto_de_dados(dataset)
+    x_treino, x_validacao, y_treino, y_validacao = dividir_conjunto_de_dados(dataset, random_st, test_s)
 
-    x_train_scaled, x_validation_scaled = Normalizar_dados(x_train, x_validation)
+    x_treino_normalizado, x_validacao_normalizado = Normalizar_dados(x_treino, x_validacao)
 
-    Treino_Modelo = Treinar_Modelo(x_train_scaled, y_train, model)
+    Treino_Modelo = Treinar_Modelo(x_treino_normalizado, y_treino, model)
 
-    data_frame_dados.columns = x_train.columns
-    scaler.fit(x_train)
+    data_frame_dados.columns = x_treino.columns
+    scaler.fit(x_treino)
     dados_scaled = scaler.transform(data_frame_dados)
     recomendacao = Treino_Modelo.predict(dados_scaled)
     resultado_recomendacao = mapeamento[recomendacao[0]]
 
-    Avaliar_Modelo(Treino_Modelo,x_validation_scaled, y_validation)
+    Avaliar_Modelo(Treino_Modelo,x_validacao_normalizado, y_validacao)
 
     
     return resultado_recomendacao
 
-
-
-if __name__ == '__main__':
-
-    #Aqui estou carregando meu dataset que esta na pasta 'content'
-    #usei o import os para encontrar o dataset sem precisar colocar o diretorio manualmente
-    file_path = 'content//crop_recommendation.csv'
-    base_dir = os.path.dirname(os.path.abspath(__file__))
-    dataset_path = os.path.join(base_dir, file_path)
-    dataset = Carregar_Dataset(dataset_path)
-    model = DecisionTreeClassifier()
-
-    #print(dataset)
-    #input('')
-
-    #Chamado da funcao Encoder para transformar a coluna dado 'label' em numeros,
-    #que é nessecario dependendo do modelo de machine learning, pois meu modelo nao é capaz de compreender strings
-    dataset_encoded = Encoder_Y(dataset)
-    
-    #Desempacotando as variaveis da funcao dividir_conjunto_de_dados 
-    #x_train - São os dados que uso para treinar o modelo
-    #y_train - Basicamente é o 'label' o resultado da recomendacão e o y_train que ira dizer qual planta o usuario deve plantar
-    #x_validation - É um template que servirá para validar se o treinamento dos dados x_train estao corretos
-    # y_validation - É a template para validar o dado 'label' 
-    x_train, x_validation, y_train, y_validation = dividir_conjunto_de_dados(dataset_encoded)
-
-    #Pre processamento usando a normalizacao de dados
-    x_train_scaled, x_validation_scaled = Normalizar_dados(x_train, x_validation)
-
-    #Aqui estou dando os valores para o modelo da machine learning, note que estou usando a normalzação no x
-    Treino_Modelo = Treinar_Modelo(x_train, y_train, model)
-
-    Avaliar_Modelo(Treino_Modelo, x_validation, y_validation)
-
-    #print(dataset_encoded.head(30))
-    #input('')
-
-    #Aqui estou mostrando a prcisão do meu modelo e tambem exibindo um relatorio de treinamento de cada 'label'
-
-
-    #print('\n', "            Precisao DecisionTree: ", accuracy, '\n')
-    #print("                             Relatorio", '\n')
-    #print(report)]
 
 
     

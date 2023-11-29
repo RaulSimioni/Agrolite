@@ -225,13 +225,13 @@
               <div class="form-group">
                 <label class="mx-auto mb-2" for="random_state"><b>Estado de aleatoriedade (Random State)</b></label>
                 <input type="text" class="form-control mb-2" id="random_state" name="random_state" value="42"
-                  placeholder="Random State">
+                  placeholder="Random State" oninput="verificarNumero()">
               </div>
               <div class="form-group">
                 <label class="mx-auto mb-2 text-center" for="test_size"><b>Quantidade de avaliação (test
                     size):</b></label>
                 <input type="text" class="form-control mb-2" id="test_size" name="test_size" value="0.2"
-                  placeholder="Test Size">
+                  placeholder="Test Size" oninput="limitarDecimais(this)">
               </div>
               <div>
                 <label class="mx-auto mb-2 text-center" for="modelo"><b>Trocar Modelo</b></label>

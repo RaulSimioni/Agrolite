@@ -79,13 +79,11 @@ def Menu_avancado(request):
         random_state = int(request.POST.get('random_state', 42))  # Valor padrão 42 se não for fornecido
         test_size = float(request.POST.get('test_size', 0.2))  # Valor padrão 0.2 se não for fornecido
         modelo_selecionado = request.POST.get('modelo')
-        file_path = 'content//crop_recommendation.csv'
-        base_dir = os.path.dirname(os.path.abspath(__file__))
-        dataset_path = os.path.join(base_dir, file_path)
 
-        dataset = Carregar_Dataset(dataset_path)
-            # Faça a divisão de dados usando random_state e test_size
-        x_train, x_validation, y_train, y_validation = dividir_conjunto_de_dados(dataset, test_size=test_size, random_state=random_state)
+
+        request.session['random_state'] = random_state
+        request.session['test_size'] = test_size
+
 
         if modelo_selecionado == 'DecisionTree':
             request.session['train_model'] = '1'
@@ -112,6 +110,9 @@ def Menu_avancado(request):
 @csrf_exempt
 def recomendacao(request):
     train_model = request.session.get('train_model')
+    random_state = request.session.get('random_state', 42)
+    test_size = request.session.get('test_size', 0.2)
+
     DecisionTree = DecisionTreeClassifier()
     Svc = SVC()
     Gaussian = GaussianNB()
@@ -123,19 +124,19 @@ def recomendacao(request):
         if form.is_valid():
             dados_usuario = form.cleaned_data
             if train_model == '1':
-                recomendacao = Recomendar(dados_usuario, DecisionTree)
+                recomendacao = Recomendar(dados_usuario, DecisionTree, random_state, test_size)
             if train_model == '2':
-                recomendacao = Recomendar(dados_usuario, Gaussian)
+                recomendacao = Recomendar(dados_usuario, Gaussian, random_state, test_size)
             if train_model == '3':
-                recomendacao = Recomendar(dados_usuario, Svc)
+                recomendacao = Recomendar(dados_usuario, Svc, random_state, test_size)
             if  train_model == '4':
-                recomendacao = Recomendar(dados_usuario, LR)
+                recomendacao = Recomendar(dados_usuario, LR, random_state, test_size)
             if  train_model == '5':
-                recomendacao = Recomendar(dados_usuario, LDA)
+                recomendacao = Recomendar(dados_usuario, LDA, random_state, test_size)
             if train_model == '6':
-                recomendacao = Recomendar(dados_usuario, RandomForest)
+                recomendacao = Recomendar(dados_usuario, RandomForest, random_state, test_size)
             if train_model == None:
-                recomendacao = Recomendar(dados_usuario, DecisionTree)
+                recomendacao = Recomendar(dados_usuario, DecisionTree, random_state, test_size)
             # Crie uma instância do modelo Historico e salve os dados
 
 
